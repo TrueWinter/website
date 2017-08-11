@@ -100,19 +100,20 @@ title: {{ site.name }}
                  status('Error: ' + xhr.status);
                },
                beforeSend: function() {
-                $('#email-contact').fadeOut();
+                //$('#email-contact').fadeOut();
                 $('#contactfailed').fadeOut();
                 $('#contactsending').fadeIn();
               },
               success: function(response) {
                 if (response.responseCode === 1) {
                   $('#contactsending').fadeOut();
-                  $('#email-contact').fadeIn();
+                  //$('#email-contact').fadeIn();
                   $('#contactfailed').fadeIn();
                   document.getElementById('contactfailed').innerHTML = response.responseDesc;
                 }
                 if (response.responseCode === 0) {
                   $('#contactsending').fadeOut();
+                  $('#email-contact').fadeOut();
                   $('#contactsent').fadeIn();
                   $('#contactfailed').fadeOut();
                   document.getElementById('contactsent').innerHTML = response.responseDesc;
