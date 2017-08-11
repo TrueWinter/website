@@ -1,0 +1,127 @@
+---
+layout: default
+title: {{ site.name }}
+---
+
+<div id="home">
+  <h1><a id="about" class="anchor" href="#about" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About</h1>
+  <p>I am a 16 year old developer from South Africa who usually does website back-end codes in PHP. Recently I have changed to looking for other languages and have found Node.js. I am currently busy with a few projects in Node.js including a bot for Discord (The chat app for gamers) and trying to make a web server using Node.js for times when a full LAMP stack is too much (example of a case like this: static site)</p>
+  <h1><a id="" class="anchor" href="#projects" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Projects</h1>
+  <p>I have done a few projects. These are listed in the table below. My web design projects are not included as I have not made them myself, I usually use templates for my websites</p>
+  <table>
+      <thead>
+      <tr>
+      <th>Project</th>
+      <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+      <td><a href="https://github.com/NdT3Development/DiscordBot" target="_blank">NdT3 Discord Bot</a></td>
+      <td>A <a href="https://discordapp.com" target="_blank">Discord (Chat app for gamers)</a> bot with moderation features. My first open source project.</td>
+      </tr>
+      <tr>
+      <td><a href="https://github.com/NdT3Development/nodejswebserverproxy" target="_blank">Node.JS Web Server Proxy</td>
+      <td>This is just simple code to give people an idea for how to run a web server with multiple domains using a proxy made with Node.JS. Not intended for production</td>
+      </tr>
+      <tr>
+      <td>Node.JS Random Number Between - <a href="https://github.com/NdT3Development/nodejs-random-number-between" target="_blank">On GitHub</a> / <a href="https://npmjs.com/package/random-number-between" target="_blank">On NPM</a></td>
+      <td>A simple Node.JS module for generating random numbers between two numbers. Can generate multiple random numbers. Returns results in array</td>
+      </tr>
+      <tr>
+      <td><a href="https://github.com/NdT3Development/nodejswebserver" target="_blank">Node.JS Static File Web Server</a></td>
+      <td>A simple Node.JS module for generating random numbers between two numbers. Can generate multiple random numbers. Returns results in array</td>
+      </tr>
+      <tr>
+      <td><a href="https://github.com/NdT3Development/nodejswebserver" target="_blank">Node.JS Static File Web Server</a></td>
+      <td>A simple Node.JS module for generating random numbers between two numbers. Can generate multiple random numbers. Returns results in array</td>
+      </tr>
+      </tbody>
+      </table>
+      <p>Projects not ready for use are not included.</p>
+      <h1><a id="contact" class="anchor" href="#contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contact Me</h1>
+      <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+      <script type="text/javascript">
+        // Parse the URL parameter
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+        // Give the parameter a variable name
+        var dynamicContent = getParameterByName('contactstatus');
+
+         $(document).ready(function() {
+
+          // Check if the URL parameter is apples
+          if (dynamicContent == 'sent') {
+            $('#contactsent').show();
+            document.getElementById('contactsent').scrollIntoView();
+          }
+          if (dynamicContent == 'failed') {
+            $('#contactfailed').show();
+            document.getElementById('contactfailed').scrollIntoView();
+          }
+          if (dynamicContent == 'required') {
+            $('#contactrequired').show();
+            document.getElementById('contactrequired').scrollIntoView();
+          }
+          if (dynamicContent == 'notvalid') {
+            $('#contactnotvalid').show();
+            document.getElementById('contactnotvalid').scrollIntoView();
+          }
+          //var newvalue = window.location.pathname;
+          //var newvalue2.replace('\?contactsuccess=true', "");
+        });
+      </script>
+      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible</p>
+      <p><strong>NOTE: This contact form does not save data after submitting. Please make sure to copy your message before submitting for if there is a problem with sending the email.</strong> I hope to have this fixed soon</p>
+      <p id="contactsending">Sending your message...</p>
+      <p id="contactsent">Thank you, your email has been sent</p>
+      <p id="contactfailed">Unfortunately, your email could not be sent. Please try again later</p>
+      <p id="contactrequired">All fields are required</p>
+      <p id="contactnotvalid">The email given is not valid</p>
+      <form id="email-contact"/>
+        <input type="text" name="name" placeholder="Name" required/>
+        <input type="email" name="email" placeholder="Email Address" required />
+        <br>
+        <textarea name="message" rows="4" cols="50" placeholder="Message" required></textarea>
+        <br>
+        <input type="submit" class="submit-button" value="Send" />
+      </form>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
+      <script>
+        $("#email-contact").validate({
+          submitHandler: function(form) {
+            $.ajax({
+              url: "http://localhost:9392/contact",
+              method: "POST",
+              data: {
+                name: $(form).find("input[name='name']").val(),
+                email: $(form).find("input[name='email']").val(),
+                message: $(form).find("textarea[name='message']").val()
+              },
+              dataType: "json",
+              beforeSend: function() {
+                $('#email-contact').fadeOut();
+                $('#contactsending').fadeIn();
+              },
+              complete: function() {
+                $('#contactsending').fadeOut();
+                $('#contactsent').fadeIn();
+              },
+              error: function() {
+                $('#contactsending').fadeOut();
+                $('#contactfailed').fadeIn();
+                $('#email-contact').fadeIn();
+              }
+            });
+          }
+        });
+      </script>
+</div>

@@ -1,0 +1,19 @@
+# Setup
+title:        NdT3Development
+tagline:      My website (I know, it's a template. But I don't do front-end web dev)
+baseurl:      ""
+paginate:     1
+
+# About/contact
+author:
+  name:       NdT3Development
+  url:        https://ndt3development.github.io
+
+# Gems
+gems:
+  - jekyll-paginate
+
+#Others
+markdown: kramdown
+
+keep_files: ["custom", "404.html"]
