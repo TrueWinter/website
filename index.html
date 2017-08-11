@@ -59,19 +59,19 @@ title: {{ site.name }}
 
           // Check if the URL parameter is apples
           if (dynamicContent == 'sent') {
-            $('#contactsent').show();
+            $('#contactsent').fadeIn();
             document.getElementById('contactsent').scrollIntoView();
           }
           if (dynamicContent == 'failed') {
-            $('#contactfailed').show();
+            $('#contactfailed').fadeIn();
             document.getElementById('contactfailed').scrollIntoView();
           }
           if (dynamicContent == 'required') {
-            $('#contactrequired').show();
+            $('#contactrequired').fadeIn();
             document.getElementById('contactrequired').scrollIntoView();
           }
           if (dynamicContent == 'notvalid') {
-            $('#contactnotvalid').show();
+            $('#contactnotvalid').fadeIn();
             document.getElementById('contactnotvalid').scrollIntoView();
           }
           //var newvalue = window.location.pathname;
@@ -79,49 +79,49 @@ title: {{ site.name }}
         });
       </script>
       <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible</p>
-      <p><strong>NOTE: This contact form does not save data after submitting. Please make sure to copy your message before submitting for if there is a problem with sending the email.</strong> I hope to have this fixed soon</p>
-      <p id="contactsending">Sending your message...</p>
-      <p id="contactsent">Thank you, your email has been sent</p>
-      <p id="contactfailed">Unfortunately, your email could not be sent. Please try again later</p>
-      <p id="contactrequired">All fields are required</p>
-      <p id="contactnotvalid">The email given is not valid</p>
-      <form id="email-contact"/>
-        <input type="text" name="name" placeholder="Name" required/>
-        <input type="email" name="email" placeholder="Email Address" required />
-        <br>
-        <textarea name="message" rows="4" cols="50" placeholder="Message" required></textarea>
-        <br>
-        <input type="submit" class="submit-button" value="Send" />
-      </form>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-      <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js"></script>
-      <script>
-        $("#email-contact").validate({
-          submitHandler: function(form) {
-            $.ajax({
-              url: "https://contact-api.ndt3.ml/contact",
-              method: "POST",
-              data: {
-                name: $(form).find("input[name='name']").val(),
-                email: $(form).find("input[name='email']").val(),
-                message: $(form).find("textarea[name='message']").val()
-              },
-              dataType: "json",
-              beforeSend: function() {
+      <p id="contactfailed"></p>
+      <p id="contactsent">Message sent</p>
+      <p id="contactsending">Message sending...</p>
+     <form id="email-contact" action='http://localhost:9397/contact' method="post">
+           <input type="text" name="name" placeholder="Name">
+           <input type="text" name="email" placeholder="Email" size="40"><br>
+           <textarea name="message" rows="8" cols="39" placeholder="Message"></textarea><br><br>
+           <div class="g-recaptcha" data-sitekey="6LeIjiwUAAAAAJTldNRQIgPEgF-FF8Arsym0CFNW"></div><br>
+           <input type="submit" name="submit" value="Send"><br><br>
+         </form>
+       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+       <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+       <!--<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>-->
+       <script>
+         $(document).ready(function() {
+           $('#email-contact').submit(function() {
+             $(this).ajaxSubmit({
+               error: function(xhr) {
+                 status('Error: ' + xhr.status);
+               },
+               beforeSend: function() {
                 $('#email-contact').fadeOut();
+                $('#contactfailed').fadeOut();
                 $('#contactsending').fadeIn();
               },
-              complete: function() {
-                $('#contactsending').fadeOut();
-                $('#contactsent').fadeIn();
-              },
-              error: function() {
-                $('#contactsending').fadeOut();
-                $('#contactfailed').fadeIn();
-                $('#email-contact').fadeIn();
+              success: function(response) {
+                if (response.responseCode === 1) {
+                  $('#contactsending').fadeOut();
+                  $('#email-contact').fadeIn();
+                  $('#contactfailed').fadeIn();
+                  document.getElementById('contactfailed').innerHTML = response.responseDesc;
+                }
+                if (response.responseCode === 0) {
+                  $('#contactsending').fadeOut();
+                  $('#contactsent').fadeIn();
+                  $('#contactfailed').fadeOut();
+                  document.getElementById('contactsent').innerHTML = response.responseDesc;
+                }
               }
-            });
-          }
-        });
-      </script>
+             });
+             //Very important line, it disable the page refresh.
+             return false;
+           });
+         });
+       </script>
 </div>
