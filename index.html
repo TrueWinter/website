@@ -99,7 +99,7 @@ title: {{ site.name }}
         $("#email-contact").validate({
           submitHandler: function(form) {
             $.ajax({
-              url: "http://localhost:9392/contact",
+              url: "https://contact-api.ndt3.ml/contact",
               method: "POST",
               data: {
                 name: $(form).find("input[name='name']").val(),
