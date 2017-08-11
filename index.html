@@ -78,20 +78,28 @@ title: {{ site.name }}
           //var newvalue2.replace('\?contactsuccess=true', "");
         });
       </script>
-      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible</p>
+      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible. <i>(And sorry about the reCaptcha. I had to add it)</i></p>
       <p id="contactfailed"></p>
       <p id="contactsent">Message sent</p>
       <p id="contactsending">Message sending...</p>
-     <form id="email-contact" action='https://contact-api.ndt3.ml/contact' method="post">
+      <form id="email-contact" action='https://contact-api.ndt3.ml/contact' method="post">
            <input type="text" name="name" placeholder="Name">
            <input type="text" name="email" placeholder="Email" size="40"><br>
-           <textarea name="message" rows="8" cols="39" placeholder="Message"></textarea><br><br>
+           <textarea name="message" rows="8" cols="39" placeholder="Message"></textarea><br>
            <div class="g-recaptcha" data-sitekey="6LeIjiwUAAAAAJTldNRQIgPEgF-FF8Arsym0CFNW"></div><br>
            <input type="submit" name="submit" value="Send"><br><br>
          </form>
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
        <!--<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>-->
+      <noscript>
+        <style type="text/css">
+          #email-contact {display:none;}
+          </style>
+          <div class="nojs">
+              You don't have Javascript enabled in your browser. Unfortunately, the contact form uses Javascript to function properly. Please enable it to use this contact form.
+          </div>
+      </noscript>
        <script>
          $(document).ready(function() {
            $('#email-contact').submit(function() {
@@ -124,5 +132,72 @@ title: {{ site.name }}
              return false;
            });
          });
+
+
+        <!-- Hide script
+        //This starts the script then hides it from lesser browsers.
+
+        cookie_name = "visits";
+        //The cookie name is set as Counter_Cookie. If you're going to put this onto other pages to count them, change this with a new name.
+
+        function doCookie() {
+        if(document.cookie)
+        {index = document.cookie.indexOf(cookie_name);}
+        //Is there a cookie named Counter_Cookie? If so, use that.
+
+        else
+        {index = -1;}
+        //If there isn't, set the index to minus one (-1).
+
+
+        if (index == -1)
+        {document.cookie=cookie_name+"=1;";}
+        //If the index was set to minus one, then set the cookie with the name Counter_Cookie, a number 1, then the expires date.
+
+        else
+        {
+        countbegin = (document.cookie.indexOf("=", index) + 1);
+        countend = document.cookie.indexOf(";", index);
+        if (countend == -1) {
+        countend = document.cookie.length;
+        }
+        count = eval(document.cookie.substring(countbegin, countend)) + 1;
+
+        document.cookie=cookie_name+"="+count+";";
+        }
+        }
+        //If not, then take the number in the cookie already and add one. Then rewrite the cookie with the new number.
+
+
+        function gettimes() {
+        //This starts the second function that gets the value in the cookie and assigns it to a variable name.
+
+        if(document.cookie) {
+        index = document.cookie.indexOf(cookie_name);
+        if (index != -1) {
+        countbegin = (document.cookie.indexOf("=", index) + 1);
+        countend = document.cookie.indexOf(";", index);
+        //Grab the second piece of information in the cookie, the number (see the +1?).
+
+        if (countend == -1) {
+        countend = document.cookie.length;
+        }
+        count = document.cookie.substring(countbegin, countend);
+        if (count == 1) {
+        return (count+" time");
+        } else {
+        return (count+" times");
+        //If the count is one, then return the singular "time." If the count is more, return the plural "times."
+
+        }
+        }
+        }
+        return ("0 times");
+        //If the number is 0, then return "0 times."
+
+        }
+
+        // done hiding script -->
+
        </script>
 </div>
