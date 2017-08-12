@@ -79,6 +79,8 @@ title: {{ site.name }}
         });
       </script>
       <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible. <i>(And sorry about the reCaptcha. I had to add it)</i></p>
+      <p id="check-server">Checking if the contact form server is online. Please wait...</p>
+      <p id="server-down">Unfortunately, the contact form server is down. Please try again later</p>
       <p id="contactfailed"></p>
       <p id="contactsent">Message sent</p>
       <p id="contactsending">Message sending...</p>
@@ -92,6 +94,8 @@ title: {{ site.name }}
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
        <!--<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>-->
+       <!-- Checks if contact form server is online -->
+       <img src="https://contact-api.ndt3.ml/check.png" onload="loadImage()" onerror="offline()" width="1" height="1">
       <noscript>
         <style type="text/css">
           #email-contact {display:none;}
@@ -140,7 +144,8 @@ title: {{ site.name }}
         cookie_name = "visits";
         //The cookie name is set as Counter_Cookie. If you're going to put this onto other pages to count them, change this with a new name.
 
-        function doCookie() {
+        function doAct() {
+          // Tracks how many times a visitor has visited the website
         if(document.cookie)
         {index = document.cookie.indexOf(cookie_name);}
         //Is there a cookie named Counter_Cookie? If so, use that.
@@ -195,8 +200,21 @@ title: {{ site.name }}
         return ("0 times");
         //If the number is 0, then return "0 times."
 
+          $('#email-contact').hide();
+          $('#check-server').show();
         }
-
+        function loadImage() {
+          $('#check-server').hide();
+          $('#email-contact').show();
+        }
+        function offline() {
+          $('#email-contact').hide()
+          $('#check-server').hide();
+          $('#server-down').show();
+        }
         // done hiding script -->
+
+
+
        </script>
 </div>
