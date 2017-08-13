@@ -208,6 +208,9 @@ title: {{ site.name }}
           $('#email-contact').show();
           $('#server-down').hide();
         }
+
+        var i = 0;
+
         function offline() {
           $('#email-contact').hide()
           $('#check-server').hide();
@@ -215,6 +218,13 @@ title: {{ site.name }}
           $('#contactsending').hide();
           $('#contactsent').hide();
           $('#contactfailed').hide();
+
+
+
+          if (i % 5 === 0 || i === 0) {
+            console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
+          }
+          i++;
         }
 
         function reloadcheck() {
