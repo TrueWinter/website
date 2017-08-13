@@ -16,4 +16,4 @@ gems:
 #Others
 markdown: kramdown
 
-keep_files: ["custom", "404.html", "dist"]
+keep_files: ["custom", "404.html"]
