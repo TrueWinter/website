@@ -78,7 +78,7 @@ title: {{ site.name }}
           //var newvalue2.replace('\?contactsuccess=true', "");
         });
       </script>
-      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible. <i>(And sorry about the reCaptcha. I had to add it)</i></p>
+      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible. <i>(And sorry about the reCaptcha. I had to add it)</i> <strong>Please note: The contact form back-end server can go down at any time. Every 10 seconds, this website will check if the back-end server is online.</strong?</p>
       <p id="check-server">Checking if the contact form server is online. Please wait...</p>
       <p id="server-down">Unfortunately, the contact form server is down. Please try again later</p>
       <p id="contactfailed"></p>
@@ -95,7 +95,7 @@ title: {{ site.name }}
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
        <!--<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>-->
        <!-- Checks if contact form server is online -->
-       <img src="https://contact-api.ndt3.ml/check.png" onload="loadImage()" onerror="offline()" width="1" height="1">
+       <img src="https://contact-api.ndt3.ml/check.png" class="checkserverimage" id="checkserverimage" onload="loadImage()" onerror="offline()" width="1" height="1">
       <noscript>
         <style type="text/css">
           #email-contact {display:none;}
@@ -206,12 +206,21 @@ title: {{ site.name }}
         function loadImage() {
           $('#check-server').hide();
           $('#email-contact').show();
+          $('#server-down').hide();
         }
         function offline() {
           $('#email-contact').hide()
           $('#check-server').hide();
           $('#server-down').show();
         }
+
+        function reloadcheck() {
+           $(document).ready(function() {
+             document.getElementById('checkserverimage').src = 'https://contact-api.ndt3.ml/check.png?reload=' + new Date().getTime();
+          });
+        }
+
+        window.setInterval(reloadcheck, 10000);
         // done hiding script -->
 
 
