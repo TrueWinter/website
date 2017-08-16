@@ -6,10 +6,18 @@
   <title>NdT3Development</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#157878">
+  <meta charset="UTF-8">
+   <meta content="NdT3Development" property="og:description">
+   <meta content="NdT3Development" property="og:title">
+   <meta content="NdT3Development" property="og:site_name">
+   <meta content='/favicon.png' property='og:image'>
+   <meta content='image/png' property='og:image:type'>
+   <meta content='1821' property='og:image:width'>
+   <meta content='2082' property='og:image:height'>
   <link rel="stylesheet" href="/css/normalize.css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/css/cayman.css">
-  <link rel="icon" href="favicon.png">
+  <link rel="icon" href="/favicon.png">
   <style>
     input[type=text], input[type=email], textarea {
         width: 100%;
@@ -364,8 +372,6 @@
           $('#contactsending').hide();
           $('#contactsent').hide();
           $('#contactfailed').hide();
-
-
 
           if (i % 5 === 0 || i === 0) {
             console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
