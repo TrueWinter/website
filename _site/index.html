@@ -263,7 +263,8 @@
            $('#email-contact').submit(function() {
              $(this).ajaxSubmit({
                error: function(xhr) {
-                 status('Error: ' + xhr.status);
+                 $('#contactfailed').fadeIn();
+                 document.getElementById('contactfailed').innerHTML = 'Error: ' + xhr.status;
                },
                beforeSend: function() {
                 //$('#email-contact').fadeOut();
