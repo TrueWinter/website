@@ -21,7 +21,7 @@ title: {{ site.name }}
       <td>A <a href="https://discordapp.com" target="_blank">Discord (Chat app for gamers)</a> bot with moderation features. My first open source project.</td>
       </tr>
       <tr>
-      <td><a href="https://github.com/NdT3Development/nodejswebserverproxy" target="_blank">Node.JS Web Server Proxy</td>
+      <td><a href="https://github.com/NdT3Development/nodejswebserverproxy" target="_blank">Node.JS Web Server Proxy</a></td>
       <td>This is just simple code to give people an idea for how to run a web server with multiple domains using a proxy made with Node.JS. Not intended for production</td>
       </tr>
       <tr>
@@ -35,6 +35,10 @@ title: {{ site.name }}
       <tr>
       <td><a href="https://github.com/NdT3Development/nodejswebserver" target="_blank">Node.JS Static File Web Server</a></td>
       <td>A simple Node.JS module for generating random numbers between two numbers. Can generate multiple random numbers. Returns results in array</td>
+      </tr>
+      <tr>
+      <td><a href="https://github.com/NdT3Development/nodeupload" target="_blank">NodeUpload</a></td>
+      <td>NodeUpload is a Node.js server application that lets you run your own private file upload service.</td>
       </tr>
       </tbody>
       </table>
@@ -78,13 +82,13 @@ title: {{ site.name }}
           //var newvalue2.replace('\?contactsuccess=true', "");
         });
       </script>
-      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible. <i>(And sorry about the reCaptcha. I had to add it)</i> <strong>Please note: The contact form back-end server can go down at any time. Every 10 seconds, this website will check if the back-end server is online.</strong?</p>
+      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible. <i>(And sorry about the reCaptcha. I had to add it)</i> <strong>Please note: The contact form back-end server can go down at any time. Every 10 seconds, this website will check if the back-end server is online.</strong></p>
       <p id="check-server">Checking if the contact form server is online. Please wait...</p>
       <p id="server-down">Unfortunately, the contact form server is down. Please try again later</p>
       <p id="contactfailed"></p>
       <p id="contactsent">Message sent</p>
       <p id="contactsending">Message sending...</p>
-      <form id="email-contact" action='https://contact-api.ndt3.ml/contact' method="post">
+      <form id="email-contact" action="https://contact-api.ndt3.ml/contact" method="post">
            <input type="text" name="name" placeholder="Name">
            <input type="text" name="email" placeholder="Email" size="40"><br>
            <textarea name="message" rows="8" cols="39" placeholder="Message"></textarea><br>
