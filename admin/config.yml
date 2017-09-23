@@ -12,6 +12,6 @@ collections:
     slug: "{{slug}}" # Filename template i.e. YYYY-MM-DD-title.md
     fields: # The fields for each document, usually in front matter
       - {label: "Layout", name: "layout", widget: "hidden", default: "r"}
-      - {label: "Redirect From", name: "title", widget:"string"}
+      - {label: "Redirect From", name: "title", widget: "string"}
       - {label: "Redirect To", name: "r", widget: "string"}
       - {label: "Comment", name: "comment", widget: "string"}
