@@ -1,5 +1,4 @@
 ---
 layout: r
-title: {{ site.name }}
 r: https://github.com/NdT3Development
 ---
