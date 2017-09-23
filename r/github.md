@@ -1,4 +1,6 @@
 ---
 layout: r
-r: https://github.com/NdT3Development
+comment: GitHub
+r: 'https://github.com/NdT3Development'
 ---
+
