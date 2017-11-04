@@ -250,7 +250,6 @@
        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
        <!--<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>-->
        <!-- Checks if contact form server is online -->
-       <img src="https://contact-api.ndt3.ml/check.png" class="checkserverimage" id="checkserverimage" onload="loadImage()" onerror="offline()" width="1" height="1">
       <noscript>
         <style type="text/css">
           #email-contact {display:none;}
@@ -260,7 +259,79 @@
           </div>
       </noscript>
        <script>
+	           function doAct() {	
+			
+				// Tracks how many times a visitor has visited the website
+				if(document.cookie)
+				{index = document.cookie.indexOf(cookie_name);}
+				//Is there a cookie named Counter_Cookie? If so, use that.
+
+				else
+				{index = -1;}
+				//If there isn't, set the index to minus one (-1).
+
+
+				if (index == -1)
+				{document.cookie=cookie_name+"=1;";}
+				//If the index was set to minus one, then set the cookie with the name Counter_Cookie, a number 1, then the expires date.
+
+				else
+				{
+					countbegin = (document.cookie.indexOf("=", index) + 1);
+					countend = document.cookie.indexOf(";", index);
+					if (countend == -1) {
+						countend = document.cookie.length;
+					}
+						count = eval(document.cookie.substring(countbegin, countend)) + 1;
+
+						document.cookie=cookie_name+"="+count+";";
+					}
+				}
+			//If not, then take the number in the cookie already and add one. Then rewrite the cookie with the new number.
+			
          $(document).ready(function() {
+			doAct();
+		 	$('#email-contact').hide();
+			$('#check-server').show();
+			$.get("https://contact-api.ndt3.ml/check.png")
+			.done(function() {
+				$('#check-server').hide();
+				$('#email-contact').show();
+				$('#server-down').hide();
+			}).fail(function() {
+				$('#email-contact').hide()
+				$('#check-server').hide();
+				$('#server-down').show();
+				$('#contactsending').hide();
+				$('#contactsent').hide();
+				$('#contactfailed').hide();
+				
+				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
+			});
+			
+			function reloadcheck() {
+				$.get('https://contact-api.ndt3.ml/check.png?reload=' + new Date().getTime())
+				.done(function() {
+				$('#check-server').hide();
+				$('#email-contact').show();
+				$('#server-down').hide();
+				}).fail(function() {
+				$('#email-contact').hide()
+				$('#check-server').hide();
+				$('#server-down').show();
+				$('#contactsending').hide();
+				$('#contactsent').hide();
+				$('#contactfailed').hide();
+					var i = 0;
+					if (i % 5 === 0 || i === 0) {
+						console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
+					}
+					i++;
+				});
+			}
+
+			window.setInterval(reloadcheck, 10000);
+			
            $('#email-contact').submit(function() {
              $(this).ajaxSubmit({
                error: function(xhr) {
@@ -300,94 +371,37 @@
         cookie_name = "visits";
         //The cookie name is set as Counter_Cookie. If you're going to put this onto other pages to count them, change this with a new name.
 
-        function doAct() {
-          // Tracks how many times a visitor has visited the website
-        if(document.cookie)
-        {index = document.cookie.indexOf(cookie_name);}
-        //Is there a cookie named Counter_Cookie? If so, use that.
 
-        else
-        {index = -1;}
-        //If there isn't, set the index to minus one (-1).
-
-
-        if (index == -1)
-        {document.cookie=cookie_name+"=1;";}
-        //If the index was set to minus one, then set the cookie with the name Counter_Cookie, a number 1, then the expires date.
-
-        else
-        {
-        countbegin = (document.cookie.indexOf("=", index) + 1);
-        countend = document.cookie.indexOf(";", index);
-        if (countend == -1) {
-        countend = document.cookie.length;
-        }
-        count = eval(document.cookie.substring(countbegin, countend)) + 1;
-
-        document.cookie=cookie_name+"="+count+";";
-        }
-        }
-        //If not, then take the number in the cookie already and add one. Then rewrite the cookie with the new number.
 
 
         function gettimes() {
         //This starts the second function that gets the value in the cookie and assigns it to a variable name.
 
-        if(document.cookie) {
-        index = document.cookie.indexOf(cookie_name);
-        if (index != -1) {
-        countbegin = (document.cookie.indexOf("=", index) + 1);
-        countend = document.cookie.indexOf(";", index);
-        //Grab the second piece of information in the cookie, the number (see the +1?).
+			if(document.cookie) {
+				index = document.cookie.indexOf(cookie_name);
+				if (index != -1) {
+					countbegin = (document.cookie.indexOf("=", index) + 1);
+					countend = document.cookie.indexOf(";", index);
+					//Grab the second piece of information in the cookie, the number (see the +1?).
 
-        if (countend == -1) {
-        countend = document.cookie.length;
-        }
-        count = document.cookie.substring(countbegin, countend);
-        if (count == 1) {
-        return (count+" time");
-        } else {
-        return (count+" times");
-        //If the count is one, then return the singular "time." If the count is more, return the plural "times."
+					if (countend == -1) {
+						countend = document.cookie.length;
+					}
+					count = document.cookie.substring(countbegin, countend);
+					if (count == 1) {
+						return (count+" time");
+					} else {
+						return (count+" times");
+						//If the count is one, then return the singular "time." If the count is more, return the plural "times."
+		
+					}
+				}
+			}
+			return ("0 times");
+			//If the number is 0, then return "0 times."
 
         }
-        }
-        }
-        return ("0 times");
-        //If the number is 0, then return "0 times."
-
-          $('#email-contact').hide();
-          $('#check-server').show();
-        }
-        function loadImage() {
-          $('#check-server').hide();
-          $('#email-contact').show();
-          $('#server-down').hide();
-        }
-
-        var i = 0;
-
-        function offline() {
-          $('#email-contact').hide()
-          $('#check-server').hide();
-          $('#server-down').show();
-          $('#contactsending').hide();
-          $('#contactsent').hide();
-          $('#contactfailed').hide();
-
-          if (i % 5 === 0 || i === 0) {
-            console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
-          }
-          i++;
-        }
-
-        function reloadcheck() {
-           $(document).ready(function() {
-             document.getElementById('checkserverimage').src = 'https://contact-api.ndt3.ml/check.png?reload=' + new Date().getTime();
-          });
-        }
-
-        window.setInterval(reloadcheck, 10000);
+		
         // done hiding script -->
 
 
