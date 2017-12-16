@@ -212,7 +212,8 @@ title: {{ site.name }}
                 }
                 if (response.responseCode === 0) {
                   $('#contactsending').fadeOut();
-                  $('#email-contact').fadeOut();
+                  //$('#email-contact').fadeOut();
+                  $('#email-contact')[0].reset();
                   $('#contactsent').fadeIn();
                   $('#contactfailed').fadeOut();
                   document.getElementById('contactsent').innerHTML = response.responseDesc;
