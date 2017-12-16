@@ -234,6 +234,7 @@
         });
       </script>
       <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible. <i>(And sorry about the reCaptcha. I had to add it)</i> <strong>Please note: The contact form back-end server can go down at any time. Every 10 seconds, this website will check if the back-end server is online.</strong></p>
+      <span id="contactMessage"></span>
       <p id="check-server">Checking if the contact form server is online. Please wait...</p>
       <p id="server-down">Unfortunately, the contact form server is down. Please try again later</p>
       <p id="contactfailed"></p>
@@ -305,9 +306,14 @@
 				$('#contactsending').hide();
 				$('#contactsent').hide();
 				$('#contactfailed').hide();
+        $('html, body').animate({
+					scrollTop: $("#contactMessage").offset().top - 10
+				}, 500);
 				
 				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
 			});
+
+      var checkNumber = 0;
 			
 			function reloadcheck() {
 				$.get('https://contact-api.ndt3.ml/check.png?reload=' + new Date().getTime())
@@ -322,11 +328,14 @@
 				$('#contactsending').hide();
 				$('#contactsent').hide();
 				$('#contactfailed').hide();
-					var i = 0;
-					if (i % 5 === 0 || i === 0) {
+        $('html, body').animate({
+					scrollTop: $("#contactMessage").offset().top - 10
+				}, 500);
+					//var i = 0;
+					if (checkNumber % 5 === 0) {
 						console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
 					}
-					i++;
+					checkNumber++;
 				});
 			}
 
@@ -337,6 +346,9 @@
                error: function(xhr) {
                  $('#contactfailed').fadeIn();
                  document.getElementById('contactfailed').innerHTML = 'Error: ' + xhr.status;
+                 $('html, body').animate({
+                    scrollTop: $("#contactMessage").offset().top - 10
+                  }, 500);
                },
                beforeSend: function() {
                 //$('#email-contact').fadeOut();
@@ -349,6 +361,9 @@
                   //$('#email-contact').fadeIn();
                   $('#contactfailed').fadeIn();
                   document.getElementById('contactfailed').innerHTML = response.responseDesc;
+                  $('html, body').animate({
+                    scrollTop: $("#contactMessage").offset().top - 10
+                  }, 500);
                 }
                 if (response.responseCode === 0) {
                   $('#contactsending').fadeOut();
@@ -356,10 +371,12 @@
                   $('#contactsent').fadeIn();
                   $('#contactfailed').fadeOut();
                   document.getElementById('contactsent').innerHTML = response.responseDesc;
+                  $('html, body').animate({
+                    scrollTop: $("#contactMessage").offset().top - 10
+                  }, 500);
                 }
               }
              });
-             //Very important line, it disable the page refresh.
              return false;
            });
          });
