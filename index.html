@@ -78,7 +78,7 @@ title: {{ site.name }}
           //var newvalue2.replace('\?contactsuccess=true', "");
         });
       </script>
-      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible. <i>(And sorry about the reCaptcha. I had to add it)</i> <strong>Please note: The contact form back-end server can go down at any time. Every 10 seconds, this website will check if the back-end server is online.</strong></p>
+      <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible.</p>
       <span id="contactMessage"></span>
       <p id="check-server">Checking if the contact form server is online. Please wait...</p>
       <p id="server-down">Unfortunately, the contact form server is down. Please try again later</p>
@@ -214,6 +214,7 @@ title: {{ site.name }}
                   $('#contactsending').fadeOut();
                   //$('#email-contact').fadeOut();
                   $('#email-contact')[0].reset();
+                  grecaptcha.reset()
                   $('#contactsent').fadeIn();
                   $('#contactfailed').fadeOut();
                   document.getElementById('contactsent').innerHTML = response.responseDesc;
