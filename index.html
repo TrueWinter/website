@@ -130,7 +130,7 @@ title: {{ site.name }}
 					}
 						count = eval(document.cookie.substring(countbegin, countend)) + 1;
 
-						document.cookie=cookie_name+"="+count+";";
+						document.cookie=cookie_name+"="+count+";expires=Tue, 19 Jan 2038 03:14:07 UTC;";
 					}
 				}
 			//If not, then take the number in the cookie already and add one. Then rewrite the cookie with the new number.
