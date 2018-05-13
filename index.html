@@ -183,9 +183,6 @@ Offline.on('down', function () {
 					$('#contactsent').hide();
 					$('#contactfailed').hide();
 				}
-        $('html, body').animate({
-					scrollTop: $("#contactMessage").offset().top - 10
-				}, 500);
 				
 				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
 			});
