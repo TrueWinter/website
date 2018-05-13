@@ -87,6 +87,7 @@ title: {{ site.name }}
       <p>Want to email me? Just fill out the form below and I will try to reply as soon as possible.</p>
       <span id="contactMessage"></span>
       <p id="check-server">Checking if the contact form server is online. Please wait...</p>
+      <p id="connection-down">It seems like your internet connection is down. Please wait or try again later</p>
       <p id="server-down">Unfortunately, the contact form server is down. Please try again later</p>
       <p id="contactfailed"></p>
       <p id="contactsent">Message sent</p>
@@ -110,6 +111,26 @@ title: {{ site.name }}
               You don't have Javascript enabled in your browser. Unfortunately, the contact form uses Javascript to function properly. Please enable it to use this contact form.
           </div>
       </noscript>
+<script src="offline.min.js"></script>
+<script>
+offline.options = {checks: {image: {url: "check-i.png"}}};
+offline.on('up', function () {
+	$('#check-server').hide();
+        $('#email-contact').show();
+        $('#server-down').hide();
+	$('#connection-down').hide();
+});
+offline.on('down', function () {
+	$('#check-server').hide();
+	$('#email-contact').hide();
+	$('#server-down').hide();
+	$('#connection-down').show();
+	$('#contactsending').hide();
+	$('#contactsent').hide();
+        $('#contactfailed').hide();
+});
+</script>
+	
 <div class="ad" style="text-align: center;font-size: small;">Advertisement<center><iframe data-aa="887950" src="" data-src="//ad.a-ads.com/887950?size=300x250" scrolling="no" style="width:300px; height:250px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe></center></div>
 <noscript>
 <div class="ad-ns" style="text-align: center;font-size: small;">Advertisement<center><iframe data-aa="887950" src="//ad.a-ads.com/887950?size=300x250" scrolling="no" style="width:300px; height:250px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe></center></div>
@@ -153,6 +174,7 @@ title: {{ site.name }}
 				$('#check-server').hide();
 				$('#email-contact').show();
 				$('#server-down').hide();
+				$('#connection-down').hide();
 			}).fail(function() {
 				$('#email-contact').hide()
 				$('#check-server').hide();
@@ -175,6 +197,7 @@ title: {{ site.name }}
 				$('#check-server').hide();
 				$('#email-contact').show();
 				$('#server-down').hide();
+				$('#connection-down').hide();
 				}).fail(function() {
 				$('#email-contact').hide()
 				$('#check-server').hide();
