@@ -91,7 +91,7 @@ title: {{ site.name }}
       <p id="contactfailed"></p>
       <p id="contactsent">Message sent</p>
       <p id="contactsending">Message sending...</p>
-      <form id="email-contact" action="https://contact-api.ndt3.ml/contact" method="post">
+      <form id="email-contact" action="https://contact-api-gfcf.ndt3.ml/contact" method="post">
            <input type="text" name="name" placeholder="Name">
            <input type="text" name="email" placeholder="Email" size="40"><br>
            <textarea name="message" rows="8" cols="39" placeholder="Message"></textarea><br>
@@ -170,7 +170,7 @@ title: {{ site.name }}
       var checkNumber = 0;
 			
 			function reloadcheck() {
-				$.get('https://contact-api.ndt3.ml/check.png?reload=' + new Date().getTime())
+				$.get('https://contact-api-gfcf.ndt3.ml/check.png?reload=' + new Date().getTime())
 				.done(function() {
 				$('#check-server').hide();
 				$('#email-contact').show();
