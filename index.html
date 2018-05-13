@@ -208,9 +208,12 @@ Offline.on('down', function () {
 						$('#contactsent').hide();
 						$('#contactfailed').hide();
 					}
-        $('html, body').animate({
-					scrollTop: $("#contactMessage").offset().top - 10
-				}, 500);
+				var dGEN = document.getElementsByName;
+				if (dGEN('name')[0].value !== "" || dGEN('email')[0].value !== "" || dGEN('message')[0].value !== "") { // Only scroll into view if the user has filled out the form or is busy doing so
+				        $('html, body').animate({
+						scrollTop: $("#contactMessage").offset().top - 10
+					}, 500);
+				}
 					//var i = 0;
 					if (checkNumber % 5 === 0) {
 						console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
