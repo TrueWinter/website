@@ -32,24 +32,18 @@ a=null!=(b=Offline.getOption("reconnect.delay"))?b:Math.min(Math.ceil(1.5*d.dela
 0):void 0},h=function(){return"waiting"===d.state?(Offline.trigger("reconnect:connecting"),d.state="connecting",Offline.check()):void 0},a=function(){return 
 Offline.getOption("reconnect")?(e(),d.state="waiting",Offline.trigger("reconnect:started"),f=setInterval(g,1e3)):void 0},i=function(){return 
 null!=f&&clearInterval(f),e()},c=function(){return Offline.getOption("reconnect")&&"connecting"===d.state?(Offline.trigger("reconnect:failure"),d.state="waiting",b()):void 
-0},d.tryNow=h,e(),Offline.on("down",a),Offline.on("confirmed-down",c),Offline.on("up",i)}.call(this),function(){var a,b,c,d,e,f;if(!window.Offline)throw new Error("Requests module 
-brought in without offline.js");c=[],f=!1,d=function(a){return Offline.getOption("requests")!==!1?(Offline.trigger("requests:capture"),"down"!==Offline.state&&(f=!0),c.push(a)):void 
+0},d.tryNow=h,e(),Offline.on("down",a),Offline.on("confirmed-down",c),Offline.on("up",i)}.call(this),function(){var a,b,c,d,e,f;if(!window.Offline)throw new Error("Requests module brought in without offline.js");c=[],f=!1,d=function(a){return Offline.getOption("requests")!==!1?(Offline.trigger("requests:capture"),"down"!==Offline.state&&(f=!0),c.push(a)):void 
 0},e=function(a){var b,c,d,e,f,g,h,i,j;if(j=a.xhr,g=a.url,f=a.type,h=a.user,d=a.password,b=a.body,Offline.getOption("requests")!==!1){j.abort(),j.open(f,g,!0,h,d),e=j.headers;for(c in 
 e)i=e[c],j.setRequestHeader(c,i);return j.mimeType&&j.overrideMimeType(j.mimeType),j.send(b)}},a=function(){return c=[]},b=function(){var 
-b,d,f,g,h,i,j;if(Offline.getOption("requests")!==!1){for(Offline.trigger("requests:flush"),i={},d=0,g=c.length;g>d;d++)h=c[d],j=h.url.replace(/(\?|&)_=[0-9]+/,function(a,b){return"?"===b?b:""}),Offline.getOption("deDupBody")?(b=h.body,b="[object 
-Object]"===b.toString()?JSON.stringify(b):b.toString(),i[h.type.toUpperCase()+" - "+j+" - "+b]=h):i[h.type.toUpperCase()+" - "+j]=h;for(f in i)h=i[f],e(h);return 
+b,d,f,g,h,i,j;if(Offline.getOption("requests")!==!1){for(Offline.trigger("requests:flush"),i={},d=0,g=c.length;g>d;d++)h=c[d],j=h.url.replace(/(\?|&)_=[0-9]+/,function(a,b){return"?"===b?b:""}),Offline.getOption("deDupBody")?(b=h.body,b="[object Object]"===b.toString()?JSON.stringify(b):b.toString(),i[h.type.toUpperCase()+" - "+j+" - "+b]=h):i[h.type.toUpperCase()+" - "+j]=h;for(f in i)h=i[f],e(h);return 
 a()}},setTimeout(function(){return Offline.getOption("requests")!==!1?(Offline.on("confirmed-up",function(){return f?(f=!1,a()):void 
 0}),Offline.on("up",b),Offline.on("down",function(){return f=!1}),Offline.onXHR(function(a){var b,c,e,f,g;return g=a.xhr,e=a.async,g.offline!==!1&&(f=function(){return 
 d(a)},c=g.send,g.send=function(b){return 
 a.body=b,c.apply(g,arguments)},e)?null===g.onprogress?(g.addEventListener("error",f,!1),g.addEventListener("timeout",f,!1)):(b=g.onreadystatechange,g.onreadystatechange=function(){return 
 0===g.readyState?f():4===g.readyState&&(0===g.status||g.status>=12e3)&&f(),"function"==typeof b?b.apply(null,arguments):void 0}):void 0}),Offline.requests={flush:b,clear:a}):void 
-0},0)}.call(this),function(){var a,b,c,d,e;if(!Offline)throw new Error("Offline simulate brought in without 
-offline.js");for(d=["up","down"],b=0,c=d.length;c>b;b++)e=d[b],(document.querySelector("script[data-simulate='"+e+"']")||("undefined"!=typeof 
+0},0)}.call(this),function(){var a,b,c,d,e;if(!Offline)throw new Error("Offline simulate brought in without offline.js");for(d=["up","down"],b=0,c=d.length;c>b;b++)e=d[b],(document.querySelector("script[data-simulate='"+e+"']")||("undefined"!=typeof 
 localStorage&&null!==localStorage?localStorage.OFFLINE_SIMULATE:void 
-0)===e)&&(null==Offline.options&&(Offline.options={}),null==(a=Offline.options).checks&&(a.checks={}),Offline.options.checks.active=e)}.call(this),function(){var 
-a,b,c,d,e,f,g,h,i,j,k,l,m;if(!window.Offline)throw new Error("Offline UI brought in without offline.js");b='<div class="offline-ui"><div class="offline-ui-content"></div></div>',a='<a 
-href class="offline-ui-retry"></a>',f=function(a){var b;return b=document.createElement("div"),b.innerHTML=a,b.children[0]},g=e=null,d=function(a){return k(a),g.className+=" 
-"+a},k=function(a){return g.className=g.className.replace(new RegExp("(^| )"+a.split(" ").join("|")+"( |$)","gi")," ")},i={},h=function(a,b){return 
+0)===e)&&(null==Offline.options&&(Offline.options={}),null==(a=Offline.options).checks&&(a.checks={}),Offline.options.checks.active=e)}.call(this),function(){var a,b,c,d,e,f,g,h,i,j,k,l,m;if(!window.Offline)throw new Error("Offline UI brought in without offline.js");b='<div class="offline-ui"><div class="offline-ui-content"></div></div>',a='<a href class="offline-ui-retry"></a>',f=function(a){var b;return b=document.createElement("div"),b.innerHTML=a,b.children[0]},g=e=null,d=function(a){return k(a),g.className+=" "+a},k=function(a){return g.className=g.className.replace(new RegExp("(^| )"+a.split(" ").join("|")+"( |$)","gi")," ")},i={},h=function(a,b){return 
 d(a),null!=i[a]&&clearTimeout(i[a]),i[a]=setTimeout(function(){return k(a),delete i[a]},1e3*b)},m=function(a){var b,c,d,e;d={day:86400,hour:3600,minute:60,second:1};for(c in 
 d)if(b=d[c],a>=b)return e=Math.floor(a/b),[e,c];return["now",""]},l=function(){var c,h;return 
 g=f(b),document.body.appendChild(g),null!=Offline.reconnect&&Offline.getOption("reconnect")&&(g.appendChild(f(a)),c=g.querySelector(".offline-ui-retry"),h=function(a){return 
