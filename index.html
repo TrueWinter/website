@@ -208,8 +208,7 @@ Offline.on('down', function () {
 						$('#contactsent').hide();
 						$('#contactfailed').hide();
 					}
-				var dGEN = document.getElementsByName;
-				if (dGEN('name')[0].value !== "" || dGEN('email')[0].value !== "" || dGEN('message')[0].value !== "") { // Only scroll into view if the user has filled out the form or is busy doing so
+					if (document.getElementsByName('name')[0].value !== "" || document.getElementsByName('email')[0].value !== "" || documents.getElementsByName('message')[0].value !== "") { // Only scroll into view if the user has filled out the form or is busy doing so
 				        $('html, body').animate({
 						scrollTop: $("#contactMessage").offset().top - 10
 					}, 500);
