@@ -175,12 +175,14 @@ Offline.on('down', function () {
 				$('#server-down').hide();
 				$('#connection-down').hide();
 			}).fail(function() {
-				$('#email-contact').hide()
-				$('#check-server').hide();
-				$('#server-down').show();
-				$('#contactsending').hide();
-				$('#contactsent').hide();
-				$('#contactfailed').hide();
+				if (Offline.state !== 'down') {
+					$('#email-contact').hide()
+					$('#check-server').hide();
+					$('#server-down').show();
+					$('#contactsending').hide();
+					$('#contactsent').hide();
+					$('#contactfailed').hide();
+				}
         $('html, body').animate({
 					scrollTop: $("#contactMessage").offset().top - 10
 				}, 500);
