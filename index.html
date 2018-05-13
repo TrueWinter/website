@@ -195,17 +195,19 @@ Offline.on('down', function () {
 			function reloadcheck() {
 				$.get('https://contact-api-gfcf.ndt3.ml/check.png?reload=' + new Date().getTime())
 				.done(function() {
-				$('#check-server').hide();
-				$('#email-contact').show();
-				$('#server-down').hide();
-				$('#connection-down').hide();
+					$('#check-server').hide();
+					$('#email-contact').show();
+					$('#server-down').hide();
+					$('#connection-down').hide();
 				}).fail(function() {
-				$('#email-contact').hide()
-				$('#check-server').hide();
-				$('#server-down').show();
-				$('#contactsending').hide();
-				$('#contactsent').hide();
-				$('#contactfailed').hide();
+					if (Offline.state !== 'down') {
+						$('#email-contact').hide()
+						$('#check-server').hide();
+						$('#server-down').show();
+						$('#contactsending').hide();
+						$('#contactsent').hide();
+						$('#contactfailed').hide();
+					}
         $('html, body').animate({
 					scrollTop: $("#contactMessage").offset().top - 10
 				}, 500);
