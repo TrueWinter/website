@@ -113,8 +113,8 @@ title: {{ site.name }}
       </noscript>
 <script src="offline.min.js"></script>
 <script>
-offline.options = {checks: {image: {url: "check-i.png"}}};
-offline.on('up', function () {
+Offline.options = {checks: {image: {url: "check-i.png"}}};
+Offline.on('up', function () {
 	$('#check-server').hide();
         $('#email-contact').show();
         $('#server-down').hide();
