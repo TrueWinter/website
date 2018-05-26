@@ -321,8 +321,10 @@ function init() {
 	}
 	var iframeDefer = document.getElementsByTagName('iframe');
 	for (var i=0; i<iframeDefer.length; i++) {
-	if(iframeDefer[i].getAttribute('data-src')) {
-	iframeDefer[i].setAttribute('src',iframeDefer[i].getAttribute('data-src'));
+		if(iframeDefer[i].getAttribute('data-src')) {
+			iframeDefer[i].setAttribute('src',iframeDefer[i].getAttribute('data-src'));
+		}
+	}
 }
 window.onload = init;
 </script>
