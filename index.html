@@ -169,10 +169,10 @@ Offline.on('down', function () {
 	
 $('#email-contact').hide();
 $('#check-server').show();
-$(document).load(function() {
+window.onload = function() {
 	reloadcheck();
 	window.setInterval(reloadcheck, 10000);
-});
+};
 
 
 
