@@ -114,6 +114,7 @@ title: {{ site.name }}
       </noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/offline-js/0.7.19/offline.min.js"></script>
 <script>
+Offline.options = {checks: {image: {url: 'check-i.png'}, active: 'image'}}
 Offline.on('up', function () {
 	$('#check-server').hide();
         $('#email-contact').show();
