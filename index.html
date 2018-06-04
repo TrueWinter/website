@@ -145,6 +145,7 @@ Offline.on('down', function () {
 			$('#email-contact').show();
 			$('#server-down').hide();
 			$('#connection-down').hide();
+			checkNumber = 0;
 		}).fail(function() {
 			if (Offline.state !== 'down') {
 				$('#email-contact').hide()
@@ -155,9 +156,11 @@ Offline.on('down', function () {
 				$('#contactfailed').hide();
 			}
 			if (document.getElementsByName('name')[0].value !== "" || document.getElementsByName('email')[0].value !== "" || document.getElementsByName('message')[0].value !== "") { // Only scroll into view if the user has filled out the form or is busy doing so
-			$('html, body').animate({
-				scrollTop: $("#contactMessage").offset().top - 10
-			}, 500);
+				if (checkNumber === 0) {
+					$('html, body').animate({
+						scrollTop: $("#contactMessage").offset().top - 10
+					}, 500);
+				}
 		}
 			//var i = 0;
 			if (checkNumber % 5 === 0) {
