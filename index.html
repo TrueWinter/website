@@ -134,40 +134,11 @@ Offline.on('down', function () {
 <div class="ad" style="text-align: center;font-size: small;">Advertisement<br><a href="http://a-ads.com?partner=887950">Advertise with Anonymous Ads</a><center><iframe data-aa="887950" src="" data-src="//ad.a-ads.com/887950?size=300x250" scrolling="no" style="width:300px; height:250px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe></center></div>
 <noscript>
 <div class="ad-ns" style="text-align: center;font-size: small;">Advertisement<br><a href="http://a-ads.com?partner=887950">Advertise with Anonymous Ads</a><center><iframe data-aa="887950" src="//ad.a-ads.com/887950?size=300x250" scrolling="no" style="width:300px; height:250px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe></center></div>
-</noscript>       <script>
-	           function doAct() {	
-			
-				// Tracks how many times a visitor has visited the website
-				if(document.cookie)
-				{index = document.cookie.indexOf(cookie_name);}
-				//Is there a cookie named Counter_Cookie? If so, use that.
-
-				else
-				{index = -1;}
-				//If there isn't, set the index to minus one (-1).
-
-
-				if (index == -1)
-				{document.cookie=cookie_name+"=1;expires=Tue, 19 Jan 2038 03:14:07 UTC;";}
-				//If the index was set to minus one, then set the cookie with the name Counter_Cookie, a number 1, then the expires date.
-
-				else
-				{
-					countbegin = (document.cookie.indexOf("=", index) + 1);
-					countend = document.cookie.indexOf(";", index);
-					if (countend == -1) {
-						countend = document.cookie.length;
-					}
-						count = eval(document.cookie.substring(countbegin, countend)) + 1;
-
-						document.cookie=cookie_name+"="+count+";expires=Tue, 19 Jan 2038 03:14:07 UTC;";
-					}
-				}
-			//If not, then take the number in the cookie already and add one. Then rewrite the cookie with the new number.
-			
-         $(document).ready(function() {
+</noscript>
+<script>        
+         $(document).load(function() {
 			doAct();
-		 	$('#email-contact').hide();
+		 	/*$('#email-contact').hide();
 			$('#check-server').show();
 			$.get("https://contact-api-gfcf.ndt3.ml/check.png")
 			.done(function() {
@@ -186,7 +157,7 @@ Offline.on('down', function () {
 				}
 				
 				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
-			});
+			});*/
 
       var checkNumber = 0;
 			
@@ -206,7 +177,7 @@ Offline.on('down', function () {
 						$('#contactsent').hide();
 						$('#contactfailed').hide();
 					}
-					if (document.getElementsByName('name')[0].value !== "" || document.getElementsByName('email')[0].value !== "" || documents.getElementsByName('message')[0].value !== "") { // Only scroll into view if the user has filled out the form or is busy doing so
+					if (document.getElementsByName('name')[0].value !== "" || document.getElementsByName('email')[0].value !== "" || document.getElementsByName('message')[0].value !== "") { // Only scroll into view if the user has filled out the form or is busy doing so
 				        $('html, body').animate({
 						scrollTop: $("#contactMessage").offset().top - 10
 					}, 500);
@@ -218,6 +189,8 @@ Offline.on('down', function () {
 					checkNumber++;
 				});
 			}
+		 
+		 	reloadcheck();
 
 			window.setInterval(reloadcheck, 10000);
 			
@@ -262,48 +235,6 @@ Offline.on('down', function () {
              return false;
            });
          });
-
-
-        <!-- Hide script
-        //This starts the script then hides it from lesser browsers.
-
-        cookie_name = "visits";
-        //The cookie name is set as Counter_Cookie. If you're going to put this onto other pages to count them, change this with a new name.
-
-
-
-
-        function gettimes() {
-        //This starts the second function that gets the value in the cookie and assigns it to a variable name.
-
-			if(document.cookie) {
-				index = document.cookie.indexOf(cookie_name);
-				if (index != -1) {
-					countbegin = (document.cookie.indexOf("=", index) + 1);
-					countend = document.cookie.indexOf(";", index);
-					//Grab the second piece of information in the cookie, the number (see the +1?).
-
-					if (countend == -1) {
-						countend = document.cookie.length;
-					}
-					count = document.cookie.substring(countbegin, countend);
-					if (count == 1) {
-						return (count+" time");
-					} else {
-						return (count+" times");
-						//If the count is one, then return the singular "time." If the count is more, return the plural "times."
-		
-					}
-				}
-			}
-			return ("0 times");
-			//If the number is 0, then return "0 times."
-
-        }
-		
-        // done hiding script -->
-
-
 
        </script>
 <script>
