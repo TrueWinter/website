@@ -167,16 +167,13 @@ Offline.on('down', function () {
 		});
 	}
 	
-$('#email-contact').hide();
-$('#check-server').show();
-window.onload = function() {
-	reloadcheck();
-	window.setInterval(reloadcheck, 10000);
-};
-
-
-
+	$('#email-contact').hide();
+	$('#check-server').show();
 	
+	function lCheck() {
+		reloadcheck();
+		window.setInterval(reloadcheck, 10000);
+	}
 
 	$('#email-contact').submit(function() {
 		$(this).ajaxSubmit({
@@ -218,15 +215,19 @@ window.onload = function() {
 	});
 	return false;
 });
+function iFrameLL() {
+	var iframeDefer = document.getElementsByTagName('iframe');
+	for (var i=0; i<iframeDefer.length; i++) {
+		if(iframeDefer[i].getAttribute('data-src')) {
+			iframeDefer[i].setAttribute('src',iframeDefer[i].getAttribute('data-src'));
+		}
+	}
 
-       </script>
-<script>
+}
 function init() {
-var iframeDefer = document.getElementsByTagName('iframe');
-for (var i=0; i<iframeDefer.length; i++) {
-if(iframeDefer[i].getAttribute('data-src')) {
-iframeDefer[i].setAttribute('src',iframeDefer[i].getAttribute('data-src'));
-} } }
+	lCheck();
+	iframeLL();
+}
 window.onload = init;
 </script>
 <noscript>
