@@ -135,106 +135,88 @@ Offline.on('down', function () {
 <noscript>
 <div class="ad-ns" style="text-align: center;font-size: small;">Advertisement<br><a href="http://a-ads.com?partner=887950">Advertise with Anonymous Ads</a><center><iframe data-aa="887950" src="//ad.a-ads.com/887950?size=300x250" scrolling="no" style="width:300px; height:250px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe></center></div>
 </noscript>
-<script>        
-         $(document).load(function() {
-			doAct();
-		 	/*$('#email-contact').hide();
-			$('#check-server').show();
-			$.get("https://contact-api-gfcf.ndt3.ml/check.png")
-			.done(function() {
+<script> 
+	var checkNumber = 0;
+
+	function reloadcheck() {
+		$.get('https://contact-api-gfcf.ndt3.ml/check.png?reload=' + new Date().getTime())
+		.done(function() {
+			$('#check-server').hide();
+			$('#email-contact').show();
+			$('#server-down').hide();
+			$('#connection-down').hide();
+		}).fail(function() {
+			if (Offline.state !== 'down') {
+				$('#email-contact').hide()
 				$('#check-server').hide();
-				$('#email-contact').show();
-				$('#server-down').hide();
-				$('#connection-down').hide();
-			}).fail(function() {
-				if (Offline.state !== 'down') {
-					$('#email-contact').hide()
-					$('#check-server').hide();
-					$('#server-down').show();
-					$('#contactsending').hide();
-					$('#contactsent').hide();
-					$('#contactfailed').hide();
-				}
-				
-				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
-			});*/
-
-      var checkNumber = 0;
-			
-			function reloadcheck() {
-				$.get('https://contact-api-gfcf.ndt3.ml/check.png?reload=' + new Date().getTime())
-				.done(function() {
-					$('#check-server').hide();
-					$('#email-contact').show();
-					$('#server-down').hide();
-					$('#connection-down').hide();
-				}).fail(function() {
-					if (Offline.state !== 'down') {
-						$('#email-contact').hide()
-						$('#check-server').hide();
-						$('#server-down').show();
-						$('#contactsending').hide();
-						$('#contactsent').hide();
-						$('#contactfailed').hide();
-					}
-					if (document.getElementsByName('name')[0].value !== "" || document.getElementsByName('email')[0].value !== "" || document.getElementsByName('message')[0].value !== "") { // Only scroll into view if the user has filled out the form or is busy doing so
-				        $('html, body').animate({
-						scrollTop: $("#contactMessage").offset().top - 10
-					}, 500);
-				}
-					//var i = 0;
-					if (checkNumber % 5 === 0) {
-						console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
-					}
-					checkNumber++;
-				});
+				$('#server-down').show();
+				$('#contactsending').hide();
+				$('#contactsent').hide();
+				$('#contactfailed').hide();
 			}
-		 
-		 	reloadcheck();
+			if (document.getElementsByName('name')[0].value !== "" || document.getElementsByName('email')[0].value !== "" || document.getElementsByName('message')[0].value !== "") { // Only scroll into view if the user has filled out the form or is busy doing so
+			$('html, body').animate({
+				scrollTop: $("#contactMessage").offset().top - 10
+			}, 500);
+		}
+			//var i = 0;
+			if (checkNumber % 5 === 0) {
+				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
+			}
+			checkNumber++;
+		});
+	}
+$(document).load(function() {
+	$('#email-contact').hide();
+	$('#check-server').show();
+	reloadcheck();
+	window.setInterval(reloadcheck, 10000);
+});
 
-			window.setInterval(reloadcheck, 10000);
-			
-           $('#email-contact').submit(function() {
-             $(this).ajaxSubmit({
-               error: function(xhr) {
-                 $('#contactfailed').fadeIn();
-                 document.getElementById('contactfailed').innerHTML = 'Error: ' + xhr.status;
-                 $('html, body').animate({
-                    scrollTop: $("#contactMessage").offset().top - 10
-                  }, 500);
-               },
-               beforeSend: function() {
-                //$('#email-contact').fadeOut();
-                $('#contactfailed').fadeOut();
-                $('#contactsending').fadeIn();
-              },
-              success: function(response) {
-                if (response.responseCode === 1) {
-                  $('#contactsending').fadeOut();
-                  //$('#email-contact').fadeIn();
-                  $('#contactfailed').fadeIn();
-                  document.getElementById('contactfailed').innerHTML = response.responseDesc;
-                  $('html, body').animate({
-                    scrollTop: $("#contactMessage").offset().top - 10
-                  }, 500);
-                }
-                if (response.responseCode === 0) {
-                  $('#contactsending').fadeOut();
-                  //$('#email-contact').fadeOut();
-                  $('#email-contact')[0].reset();
-                  grecaptcha.reset()
-                  $('#contactsent').fadeIn();
-                  $('#contactfailed').fadeOut();
-                  document.getElementById('contactsent').innerHTML = response.responseDesc;
-                  $('html, body').animate({
-                    scrollTop: $("#contactMessage").offset().top - 10
-                  }, 500);
-                }
-              }
-             });
-             return false;
-           });
-         });
+
+
+	
+
+	$('#email-contact').submit(function() {
+		$(this).ajaxSubmit({
+		error: function(xhr) {
+			$('#contactfailed').fadeIn();
+			document.getElementById('contactfailed').innerHTML = 'Error: ' + xhr.status;
+			$('html, body').animate({
+				scrollTop: $("#contactMessage").offset().top - 10
+			}, 500);
+		},
+		beforeSend: function() {
+			//$('#email-contact').fadeOut();
+			$('#contactfailed').fadeOut();
+			$('#contactsending').fadeIn();
+		},
+		success: function(response) {
+			if (response.responseCode === 1) {
+				$('#contactsending').fadeOut();
+				//$('#email-contact').fadeIn();
+				$('#contactfailed').fadeIn();
+				document.getElementById('contactfailed').innerHTML = response.responseDesc;
+				 $('html, body').animate({
+				scrollTop: $("#contactMessage").offset().top - 10
+				}, 500);
+			}
+			if (response.responseCode === 0) {
+				$('#contactsending').fadeOut();
+				//$('#email-contact').fadeOut();
+				$('#email-contact')[0].reset();
+				grecaptcha.reset()
+				$('#contactsent').fadeIn();
+				$('#contactfailed').fadeOut();
+				document.getElementById('contactsent').innerHTML = response.responseDesc;
+				$('html, body').animate({
+					scrollTop: $("#contactMessage").offset().top - 10
+				}, 500);
+			}
+		}
+	});
+	return false;
+});
 
        </script>
 <script>
