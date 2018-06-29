@@ -1,4 +1,6 @@
+<div id="donateBTCScript>
 <!--<script type="text/javascript" src="https://blockchain.info/Resources/js/pay-now-button.js"></script>-->
+</script>
 <footer class="site-footer">
 <div class="donateBTCButton" style="display:none;">
 <div style="font-size:16px;margin:0 auto;width:300px" class="blockchain-btn" data-address="1HjxcKZgWzNWzwSMKiABixTayqeDmNWkAt" data-shared="false">
@@ -24,15 +26,15 @@ function loadError(oError) {
   throw new URIError("The script " + oError.target.src + " didn't load correctly.");
 }
 
-function prefixScript(url, onloadFunction) {
+function prefixScript(url, insertIn, onloadFunction) {
   var newScript = document.createElement("script");
   newScript.onerror = loadError;
   if (onloadFunction) { newScript.onload = onloadFunction; }
-  document.currentScript.parentNode.insertBefore(newScript, document.currentScript);
+  insertIn.appendChild(newScript);
   newScript.src = url;
 }
 window.addEventListener('load', function () {
-  prefixScript('https://blockchain.info/Resources/js/pay-now-button.js', function() {
+  prefixScript('https://blockchain.info/Resources/js/pay-now-button.js', $('#donateBTCScript')[0], function() {
     $('.donateBTCButton').show();
   });
   $("#donateBTCImgOne").attr("src", jQuery("#donateBTCImgOne").attr("data-src"));
