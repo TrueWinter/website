@@ -96,7 +96,7 @@ title: {{ site.name }}
 		<div class="contact-form" style="position: absolute;width: 100%;height: 100%;z-index: 10;background-color: rgba(128, 128, 128, 0.5);"></div>
 	      	<div class="contact-loader" style="position: absolute;margin: auto;left: 45%;top: 35%;z-index: 11;">
 	      		<img id="contact-loader-icon" data-src="https://www.ndt3.ml/loading.gif">
-			<script>document.addEventListener("load", function() {$('#contact-loader-icon').attr('src', $('#contact-loader-icon').attr('data-src'));});</script>
+			<script>window.addEventListener("load", function() {$('#contact-loader-icon').attr('src', $('#contact-loader-icon').attr('data-src'));});</script>
 		</div>
 	</div>
            <input type="text" name="name" placeholder="Name">
@@ -188,11 +188,11 @@ Offline.on('down', function () {
 			$('#contactfailed').fadeIn();
 			document.getElementById('contactfailed').innerHTML = 'Error: ' + xhr.status;
 			$('#contact-form-loader-icon').hide();
+		},
+		beforeSend: function() {
 			$('html, body').animate({
 				scrollTop: $("#contactMessage").offset().top - 10
 			}, 500);
-		},
-		beforeSend: function() {
 			//$('#email-contact').fadeOut();
 			$('#contact-form-loader-icon').show();
 			$('#contactfailed').fadeOut();
@@ -217,9 +217,6 @@ Offline.on('down', function () {
 				$('#contactsent').fadeIn();
 				$('#contactfailed').fadeOut();
 				document.getElementById('contactsent').innerHTML = response.responseDesc;
-				$('html, body').animate({
-					scrollTop: $("#contactMessage").offset().top - 10
-				}, 500);
 			}
 		}
 	});
