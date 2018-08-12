@@ -213,6 +213,7 @@ Offline.on('down', function () {
 				$('#contactsending').fadeOut();
 				//$('#email-contact').fadeOut();
 				$('#email-contact')[0].reset();
+				$('#contact-form-loader-icon').hide();
 				grecaptcha.reset()
 				$('#contactsent').fadeIn();
 				$('#contactfailed').fadeOut();
