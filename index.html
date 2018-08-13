@@ -150,6 +150,7 @@ Offline.on('down', function () {
 			$('#server-down').hide();
 			$('#connection-down').hide();
 			checkNumber = 0;
+			return 'Connection successful';
 		}).fail(function() {
 			if (Offline.state !== 'down') {
 				$('#email-contact').hide()
@@ -171,6 +172,7 @@ Offline.on('down', function () {
 				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
 			}
 			checkNumber++;*/
+			return 'Connection failed';
 		});
 	}
 	
@@ -189,8 +191,11 @@ Offline.on('down', function () {
 			document.getElementById('contactfailed').innerHTML = 'Error: ' + xhr.status;
 			$('#contact-form-loader-icon').hide();
 		},
-		beforeSend: function() {
-			reloadcheck();
+		beforeSend: function(xhr) {
+			var reloadCheckR = reloadcheck();
+			if (reloadCheckR === 'Connection failed') {
+				xhr.abort();
+			}
 			$('html, body').animate({
 				scrollTop: $("#contactMessage").offset().top - 10
 			}, 500);
