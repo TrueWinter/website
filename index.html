@@ -150,6 +150,7 @@ Offline.on('down', function () {
 			$('#server-down').hide();
 			$('#connection-down').hide();
 			checkNumber = 0;
+			console.log('Connection successful');
 			return 'Connection successful';
 		}).fail(function() {
 			if (Offline.state !== 'down') {
@@ -172,6 +173,7 @@ Offline.on('down', function () {
 				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
 			}
 			checkNumber++;*/
+			console.log('Connection successful');
 			return 'Connection failed';
 		});
 	}
