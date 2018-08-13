@@ -195,6 +195,7 @@ Offline.on('down', function () {
 		},
 		beforeSend: function(xhr) {
 			var reloadCheckR = reloadcheck();
+			console.log('R: ' + reloadCheckR);
 			if (reloadCheckR === 'Connection failed') {
 				xhr.abort();
 			}
