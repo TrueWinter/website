@@ -87,7 +87,7 @@ title: {{ site.name }}
       <span id="contactMessage"></span>
       <p id="check-server">Checking if the contact form server is online. Please wait...</p>
       <p id="connection-down">It seems like your internet connection is down. Please wait or try again later</p>
-      <p id="server-down">Unfortunately, the contact form server is down. Please try again later. <button onclick="reloadcheck();">Re-check</button></p>
+      <p id="server-down">Unfortunately, the contact form server is down. Please try again later. <button onclick="reloadcheck(function(d){});">Re-check</button></p>
       <p id="contactfailed"></p>
       <p id="contactsent">Message sent</p>
       <p id="contactsending">Message sending...</p>
@@ -142,7 +142,7 @@ Offline.on('down', function () {
 <script> 
 	var checkNumber = 0;
 
-	function reloadcheck() {
+	function reloadcheck(cb) {
 		$.get('https://contact-api-gfcf.ndt3.ml/check.png?reload=' + new Date().getTime())
 		.done(function() {
 			$('#check-server').hide();
@@ -151,7 +151,7 @@ Offline.on('down', function () {
 			$('#connection-down').hide();
 			checkNumber = 0;
 			console.log('Connection successful');
-			return 'Connection successful';
+			cb('Connection successful');
 		}).fail(function() {
 			if (Offline.state !== 'down') {
 				$('#email-contact').hide()
@@ -174,7 +174,7 @@ Offline.on('down', function () {
 			}
 			checkNumber++;*/
 			console.log('Connection failed');
-			return 'Connection failed';
+			cb('Connection failed');
 		});
 	}
 	
@@ -182,7 +182,7 @@ Offline.on('down', function () {
 	$('#check-server').show();
 	
 	function lCheck() {
-		reloadcheck();
+		reloadcheck(function(d){});
 		//window.setInterval(reloadcheck, 10000);
 	}
 
@@ -194,11 +194,12 @@ Offline.on('down', function () {
 			$('#contact-form-loader-icon').hide();
 		},
 		beforeSend: function(xhr) {
-			var reloadCheckR = reloadcheck();
-			console.log('R: ' + reloadCheckR);
-			if (reloadCheckR === 'Connection failed') {
-				xhr.abort();
-			}
+			reloadcheck(function(d) {
+				console.log('R: ' + d);
+				if (d === 'Connection failed') {
+					xhr.abort();
+				}
+			});
 			$('html, body').animate({
 				scrollTop: $("#contactMessage").offset().top - 10
 			}, 500);
