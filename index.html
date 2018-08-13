@@ -87,7 +87,7 @@ title: {{ site.name }}
       <span id="contactMessage"></span>
       <p id="check-server">Checking if the contact form server is online. Please wait...</p>
       <p id="connection-down">It seems like your internet connection is down. Please wait or try again later</p>
-      <p id="server-down">Unfortunately, the contact form server is down. Please try again later</p>
+      <p id="server-down">Unfortunately, the contact form server is down. Please try again later. <button onclick="reloadcheck();">Re-check</button></p>
       <p id="contactfailed"></p>
       <p id="contactsent">Message sent</p>
       <p id="contactsending">Message sending...</p>
@@ -167,10 +167,10 @@ Offline.on('down', function () {
 				}
 		}
 			//var i = 0;
-			if (checkNumber % 5 === 0) {
+			/*if (checkNumber % 5 === 0) {
 				console.log('Don\'t worry about these errors. It\'s just the automatic check for when the contact form back-end will be online. You can see the status at https://status.ndt3.ml')
 			}
-			checkNumber++;
+			checkNumber++;*/
 		});
 	}
 	
@@ -179,7 +179,7 @@ Offline.on('down', function () {
 	
 	function lCheck() {
 		reloadcheck();
-		window.setInterval(reloadcheck, 10000);
+		//window.setInterval(reloadcheck, 10000);
 	}
 
 	$('#email-contact').submit(function() {
@@ -190,6 +190,7 @@ Offline.on('down', function () {
 			$('#contact-form-loader-icon').hide();
 		},
 		beforeSend: function() {
+			reloadcheck();
 			$('html, body').animate({
 				scrollTop: $("#contactMessage").offset().top - 10
 			}, 500);
