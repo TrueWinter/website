@@ -2,7 +2,7 @@ backend:
   name: github
   repo: NdT3Development/NdT3Development.github.io
   branch: master
-  site_domain: www.ndt3.ml
+  site_domain: www.ndt3.me
 media_folder: "images/uploads"
 collections:
   - name: "redirects" # Used in routes, e.g. /admin/collections/blog
