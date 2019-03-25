@@ -1,7 +1,9 @@
 ---
 layout: r
-title: blog
 r: 'https://blog.ndt3.ml'
+title: blog
 comment: Blog
+track: true
 ---
+
 
