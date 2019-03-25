@@ -14,7 +14,9 @@
 
     </section>
 
-	{% include analytics.html %}
+	{% if page.track %}
+		{% include analytics.html %}
+	{% endif %}
 
   </body>
 </html>
