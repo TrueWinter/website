@@ -6,17 +6,34 @@
 
     <section class="main-content">
 
-      Please wait... (if you are not redirected within a few seconds, please ensure that you have javascript enabled)
+      Please wait... (if you are not redirected, please ensure that you have Javascript enabled)
       <script>
-        document.location.href = '{{ page.r }}';
+	      function redirect() {
+        	document.location.href = '{{ page.r }}';
+	      }
       </script>
 
 
     </section>
 
+	<script>
 	{% if page.track %}
-		{% include analytics.html %}
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-104398508-1', 'auto');
+		window.getQueryParams = function(){try{u=window.location.href;if(u.indexOf('?')<0){return{};}q=u.substr(u.indexOf('?')+1,u.length-1);r=q.split('&');p={};for(i in r){p=r[i].split('=');p[p[0]]=p[1];}return p;}catch(e){return {};}};
+		if(!(getQueryParams().hasOwnProperty('ntr'))){
+			//ga('send', 'pageview');
+			ga('send', 'event', 'Redirect URL', '{{ page.r }}', {hitCallback: function() {redirect();}});
+		} else {
+			console.log('Not tracking');
+			setTimeout(function(){redirect();}, 500);
+		}
+	{% else %}												       	
+		setTimeout(function(){redirect();}, 500);
 	{% endif %}
-
+	</script>
   </body>
 </html>
