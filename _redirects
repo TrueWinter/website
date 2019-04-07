@@ -1,1 +1,3 @@
 https://ndt3.me/* https://www.ndt3.me/:splat 301!
+https://ndt3website.netlify.com/* https://www.ndt3.me/:splat 301!
+http://ndt3website.netlify.com/* https://www.ndt3.me/:splat 301!
