@@ -1,6 +1,10 @@
 <head>
   <meta charset="UTF-8">
-  <title>{{ site.title }}</title>
+  {% if page.title != null and page.title != site.title %}
+    <title>{{ page.title }}</title>
+  {% else %}
+    <title>{{ site.title }}</title>
+  {% endif %}
   <style>
     .ad-ns {
       display:none;
