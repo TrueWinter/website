@@ -1,12 +1,13 @@
 # Setup
 title:        NdT3Development
+name:         NdT3Development
 tagline:      My website (I know, it's a template. But I don't do front-end web dev)
 baseurl:      ""
 paginate:     1
 
 # About/contact
 author:
-  name:       NdT3Development
+  name:       Nicholis du Toit
   url:        https://www.ndt3.me
 
 # Gems
