@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: ndt3.me
+Token: 294bff2682f44b55df7162bca65a179aa5281e560c08037e42fffe26459d0987
