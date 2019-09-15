@@ -138,7 +138,6 @@ Offline.on('down', function () {
 <noscript>
 <div class="ad-ns" style="text-align: center;font-size: small;">Advertisement<br><a href="http://a-ads.com?partner=887950">Advertise with Anonymous Ads</a><center><iframe data-aa="887950" src="//ad.a-ads.com/887950?size=300x250" scrolling="no" style="width:300px; height:250px; border:0px; padding:0;overflow:hidden" allowtransparency="true"></iframe></center></div>
 </noscript>-->
-	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- AD-U1 -->
 <ins class="adsbygoogle"
      style="display:block"
@@ -146,9 +145,6 @@ Offline.on('down', function () {
      data-ad-slot="6751721394"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 <script> 
 	var checkNumber = 0;
 
@@ -252,9 +248,17 @@ function iFrameLL() {
 	}
 
 }
+function loadAdScript() {
+	var element = document.createElement("script");
+	element.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+	document.body.appendChild(element);
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	
+}
 function init() {
 	lCheck();
 	iFrameLL();
+	loadAdScript();
 }
 window.onload = init;
 </script>
