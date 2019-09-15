@@ -181,12 +181,24 @@ window.cookieconsent.initialise({
   }
 })});
 </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
 <script>
   (adsbygoogle = window.adsbygoogle || []).push({
     google_ad_client: "ca-pub-3285187781774116",
     enable_page_level_ads: true
   });
+</script>
+	<script type="text/javascript">
+function downloadJSAtOnload() {
+var element = document.createElement("script");
+element.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+document.body.appendChild(element);
+}
+if (window.addEventListener)
+window.addEventListener("load", downloadJSAtOnload, false);
+else if (window.attachEvent)
+window.attachEvent("onload", downloadJSAtOnload);
+else window.onload = downloadJSAtOnload;
 </script>
   <!--<link rel="dns-prefetch" href="//cdn.ndt3.top">-->
 </head>
