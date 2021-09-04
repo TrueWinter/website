@@ -47,6 +47,7 @@
         <ul>
             <li>2a0e:8f02:2154::/48</li>
         </ul>
+        <div class="alert alert-primary" role="alert"><span>Please note that the Dallas and Singapore points of presence of the anycast network were decommissioned in September 2021 due to financial reasons.<br></span></div>
         <p>A map of the anycast network has been included below:</p>
         <div id="anycast-map"></div><div id="anycast-map-resources"></div>
 <div class="alert alert-info" style="margin-top:16px" id="anycast-connected-pop">Checking the PoP you will connect to...</div>
@@ -70,9 +71,9 @@
 			icons.blue = L.icon({iconUrl: '/assets/img/marker-icon.png', iconSize:[25,41], iconAnchor:[12,41], popupAnchor:[1,-34], shadowSize:[41,41]});
 
 			var locations = [{name: 'Nuremburg, DE', location: {lat: 49.4521, lon: 11.0767}},
-							{name: 'Johannesburg, ZA', location: {lat: -26.2077, lon: 28.0511}},
+							{name: 'Johannesburg, ZA', location: {lat: -26.2077, lon: 28.0511}}/*,
 							{name: 'Dallas, US', location: {lat: 32.7791, lon: -96.8088}},
-                            {name: 'Singapore, SG', location: {lat: 1.290270, lon: 103.851959}}];
+                            {name: 'Singapore, SG', location: {lat: 1.290270, lon: 103.851959}}*/];
 			
 			for (var i = 0; i < locations.length ; i++) {
 				var _m = L.marker(locations[i].location, {icon: icons.blue})
