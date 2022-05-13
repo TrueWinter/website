@@ -86,7 +86,7 @@
             for (var i = 0; i < data.length; i++) {
                 table.appendChild(createTableRow(
                     createLink(data[i].name, `https://www.peeringdb.com/ix/${data[i].peeringDbId}`).outerHTML,
-                    data[i].speed,
+                    `${data[i].speed}Mbps`,
                     data[i].rsPeer
                 ));
             }
