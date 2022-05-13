@@ -1,0 +1,64 @@
+.invalid-form-data {
+  border: 1px solid #f66 !important;
+  border-radius: 3px !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .nav-sep {
+    border-left: 1px solid rgba(255,255,255,0.4);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .nav-sep {
+    border-top: 1px solid rgba(255,255,255,0.4);
+  }
+}
+
+a {
+  outline: 0;
+}
+
+.dn42-network-info p {
+  margin-bottom: 4px;
+}
+
+.dn42-network-info {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .footer-links li {
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+}
+
+.nav-link.active {
+  color: #ea62f6 !important;
+}
+
+@media (max-width: 768px) {
+  #anycast-map {
+    width: 300px;
+    height: 200px;
+    margin: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  #anycast-map {
+    width: 600px;
+    height: 400px;
+    margin: auto;
+  }
+}
+
+.leaflet-map-tiles {
+  filter: brightness(.66) invert(1) contrast(3) hue-rotate(200deg) saturate(.3) brightness(.66);
+}
+
+.leaflet-tile-pane {
+  filter: brightness(.66) invert(1) contrast(3) hue-rotate(200deg) saturate(.3) brightness(.66);
+}
+

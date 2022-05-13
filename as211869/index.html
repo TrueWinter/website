@@ -49,14 +49,93 @@
         <p>I currently announce these from servers in Germany and South Africa. Feel free to contact me for peering (over a mutual internet exchange or a tunnel).</p>
         <p>A looking glass is available at&#xA0;<a href="https://lg.as211869.net" target="_blank">https://lg.as211869.net</a>.&#xA0; An IPv6-only website is available at&#xA0;<a href="https://ipv6-only.as211869.net" target="_blank">https://ipv6-only.as211869.net</a>.<br></p>
         <p>A tool to find mutual internet exchanges is available at <a href="https://mutual-ix.as211869.net" target="_blank">https://mutual-ix.as211869.net</a>.</p>
-        <p>AS211869 runs mostly on the same servers that are used in my <a href="/dn42">DN42 network</a>. A full network map has been included below:</p><img id="network-map" class="mx-auto d-block img-fluid" data-src="https://network-map.as211869.net/files/network.jpg"><script>
+        <p>AS211869 runs mostly on the same servers that are used in my <a href="/dn42">DN42 network</a>. A full network map has been included below:</p><img id="network-map" class="mx-auto d-block img-fluid" data-src="https://network-map.as211869.net/files/network.jpg">
+        <div id="as211869-exchanges" class="table-responsive" style="margin-top: 16px;">
+            <h2>Internet Exchanges</h2>
+            <p>AS211869 is on a few internet exchanges, which are listed below:</p>
+        </div><script>
     var networkMap = document.getElementById('network-map');
+    var ixTable = document.getElementById('as211869-exchanges');
     
     window.addEventListener('load', function() {
+        loadMap();
+        getIxList();
+    });
+    
+    function loadMap() {
         if (!networkMap) return;
         if (!networkMap.dataset.src) return;
 	    networkMap.src = networkMap.dataset.src;
-    });
+    }
+    
+    function getIxList() {
+        if (!ixTable) return;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://as211869.net/api/exchanges');
+        xhr.onload = function() {
+            var data = JSON.parse(this.responseText);
+            var table = document.createElement('table');
+            table.classList = 'table';
+            table.appendChild(createTableHeaderRow(
+                'Exchange',
+                'Speed',
+                'RS Peer'
+            ));
+            
+            for (var i = 0; i < data.length; i++) {
+                table.appendChild(createTableRow(
+                    createLink(data[i].name, `https://www.peeringdb.com/ix/${data[i].peeringDbId}`).outerHTML,
+                    data[i].speed,
+                    data[i].rsPeer
+                ));
+            }
+            
+            ixTable.appendChild(table);
+        };
+        
+        xhr.onerror = function() {
+            var errorElem = document.createElement('div');
+            errorElem.classList = 'alert alert-warning';
+            errorElem.innerText = 'Failed to load internet exchange data';
+            ixTable.append(errorElem);
+        };
+        
+        xhr.send();
+    }
+    
+    function createTableHeaderRow(...data) {
+        var row = document.createElement('tr');
+        
+        for (var i = 0; i < data.length; i++) {
+            let rowData = document.createElement('th');
+            rowData.innerHTML = data[i];
+            row.appendChild(rowData);
+        }
+        
+        return row;
+    }
+    
+    function createTableRow(...data) {
+        var row = document.createElement('tr');
+        
+        for (var i = 0; i < data.length; i++) {
+            let rowData = document.createElement('td');
+            rowData.innerHTML = data[i];
+            row.appendChild(rowData);
+        }
+        
+        return row;
+    }
+    
+    function createLink(text, url, target = '_blank') {
+       var link = document.createElement('a');
+        link.innerText = text;
+        link.target = target;
+        link.href = url;
+        
+        return link;
+    }
 </script>
     </div>
     <div class="footer-dark">
@@ -177,7 +256,6 @@ function ccLoaded() {
 <link rel="stylesheet" class="tw-ll" data-href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
 
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;f604a9d9c3db465eb95a2daaf0686aa0&quot;}"></script><!-- End Cloudflare Web Analytics -->
-<script async defer data-website-id="1ce3a16c-0ebe-4460-a7ea-78e0e6870ae7" data-host-url="https://umami.truewinter.net" src="https://cdn-b.truewinter.net/umami/umami.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/script.min.js"></script>

@@ -52,12 +52,87 @@
             <p><strong>Looking Glass</strong>:&#xA0;<a href="http://lg.truewinter.dn42" target="_blank"><span style="text-decoration: underline;">lg.truewinter.dn42</span></a>&#xA0;or&#xA0;<a href="https://lg.dn42.truewinter.dev" target="_blank"><span style="text-decoration: underline;">lg.dn42.truewinter.dev</span></a>&#xA0;<br></p>
             <p>My DN42 network runs mostly on the same servers that are used in the <a href="/as211869">AS211869</a>&#xA0;network. A full network map has been included below:</p><img id="network-map" class="mx-auto d-block img-fluid" data-src="https://network-map.as211869.net/files/network.jpg"><script>
     var networkMap = document.getElementById('network-map');
+    var ixTable = document.getElementById('as211869-exchanges');
     
     window.addEventListener('load', function() {
+        loadMap();
+        getIxList();
+    });
+    
+    function loadMap() {
         if (!networkMap) return;
         if (!networkMap.dataset.src) return;
 	    networkMap.src = networkMap.dataset.src;
-    });
+    }
+    
+    function getIxList() {
+        if (!ixTable) return;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://as211869.net/api/exchanges');
+        xhr.onload = function() {
+            var data = JSON.parse(this.responseText);
+            var table = document.createElement('table');
+            table.classList = 'table';
+            table.appendChild(createTableHeaderRow(
+                'Exchange',
+                'Speed',
+                'RS Peer'
+            ));
+            
+            for (var i = 0; i < data.length; i++) {
+                table.appendChild(createTableRow(
+                    createLink(data[i].name, `https://www.peeringdb.com/ix/${data[i].peeringDbId}`).outerHTML,
+                    data[i].speed,
+                    data[i].rsPeer
+                ));
+            }
+            
+            ixTable.appendChild(table);
+        };
+        
+        xhr.onerror = function() {
+            var errorElem = document.createElement('div');
+            errorElem.classList = 'alert alert-warning';
+            errorElem.innerText = 'Failed to load internet exchange data';
+            ixTable.append(errorElem);
+        };
+        
+        xhr.send();
+    }
+    
+    function createTableHeaderRow(...data) {
+        var row = document.createElement('tr');
+        
+        for (var i = 0; i < data.length; i++) {
+            let rowData = document.createElement('th');
+            rowData.innerHTML = data[i];
+            row.appendChild(rowData);
+        }
+        
+        return row;
+    }
+    
+    function createTableRow(...data) {
+        var row = document.createElement('tr');
+        
+        for (var i = 0; i < data.length; i++) {
+            let rowData = document.createElement('td');
+            rowData.innerHTML = data[i];
+            row.appendChild(rowData);
+        }
+        
+        return row;
+    }
+    
+    function createLink(text, url, target = '_blank') {
+       var link = document.createElement('a');
+        link.innerText = text;
+        link.target = target;
+        link.href = url;
+        
+        return link;
+    }
 </script>
         </div>
     </div>
@@ -179,7 +254,6 @@ function ccLoaded() {
 <link rel="stylesheet" class="tw-ll" data-href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
 
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;f604a9d9c3db465eb95a2daaf0686aa0&quot;}"></script><!-- End Cloudflare Web Analytics -->
-<script async defer data-website-id="1ce3a16c-0ebe-4460-a7ea-78e0e6870ae7" data-host-url="https://umami.truewinter.net" src="https://cdn-b.truewinter.net/umami/umami.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/script.min.js"></script>
