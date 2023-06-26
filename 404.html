@@ -216,4 +216,20 @@ function ccLoaded() {
 				}
 			}
 		});
+	</script><script>
+		window.addEventListener('load', function() {
+			var twLL = document.getElementsByClassName('tw-ll');
+			
+			for (var i = 0; i < twLL.length; i++) {
+				var dataResourceURL = twLL[i].dataset.href || twLL[i].dataset.src;
+				var re = /\/.[a-z0-9.]+\.([a-z]+)$/gm;
+				var type = re.exec(dataResourceURL)[1];
+				
+				if (type === 'css') {
+					twLL[i].href = twLL[i].dataset.href;
+				} else if (type === 'js') {
+					twLL[i].src = twLL[i].dataset.src;
+				}
+			}
+		});
 	</script></body></html>
