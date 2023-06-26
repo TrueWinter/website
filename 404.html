@@ -1,15 +1,15 @@
 <!DOCTYPE html><html><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>AS211869 | TrueWinter</title>
+    <title>TrueWinter</title>
     <meta name="twitter:image" content="https://truewinter.dev/assets/img/logo_256.jpg">
     <meta property="og:image" content="https://truewinter.dev/assets/img/logo_512.jpg">
     <meta name="twitter:title" content="TrueWinter">
     <meta name="twitter:card" content="summary">
     <meta property="og:type" content="website">
+    <meta name="description" content="I&apos;m TrueWinter, a software and website developer from South Africa. I also find and responsibly disclose security vulnerabilities.">
     <meta name="twitter:description" content="I&apos;m TrueWinter, a software and website developer from South Africa. I also find and responsibly disclose security vulnerabilities.">
     <meta name="robots" content="noindex">
-    <meta name="description" content="This page contains information about AS211869, an educational/research network.">
     <link rel="icon" type="image/jpeg" sizes="16x16" href="/assets/img/logo_16.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/darkly/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
@@ -40,106 +40,9 @@
             </div>
         </div>
     </div>
-    <div class="container" style="margin-top: 16px;margin-bottom: 32px;">
-        <h1>AS211869</h1>
-        <p>I operate AS211869 for research/educational purposes. It consists of the following prefixes:</p>
-        <ul>
-            <li>2a0e:8f02:2150::/44</li>
-            <li>2a06:a005:1300::/44</li>
-            <li>2a06:a005:458::/47</li>
-        </ul>
-        <p>I currently announce these from servers in Germany, London, and South Africa.</p>
-        <p>Feel free to contact me for peering (over a mutual internet exchange or a GRE tunnel). Please note that peers will not receive all AS211869 prefixes unless otherwise agreed upon, and that prefix announcements may differ in different locations.</p>
-        <p>A looking glass is available at&#xA0;<a href="https://lg.as211869.net" target="_blank">https://lg.as211869.net</a>.&#xA0; An IPv6-only website is available at&#xA0;<a href="https://ipv6-only.as211869.net" target="_blank">https://ipv6-only.as211869.net</a>.<br></p>
-        <p>A tool to find mutual internet exchanges is available at <a href="https://mutual-ix.as211869.net" target="_blank">https://mutual-ix.as211869.net</a>.</p>
-        <p>AS211869 runs mostly on the same servers that are used in my <a href="/dn42">DN42 network</a>. A full network map has been included below:</p><img id="network-map" class="mx-auto d-block img-fluid" data-src="https://network-map.as211869.net/files/network.drawio.svg">
-        <div id="as211869-exchanges" class="table-responsive" style="margin-top: 16px;">
-            <h2>Internet Exchanges</h2>
-            <p>AS211869 is on a few internet exchanges, which are listed below:</p>
-        </div><script>
-    var networkMap = document.getElementById('network-map');
-    var ixTable = document.getElementById('as211869-exchanges');
-    
-    window.addEventListener('load', function() {
-        loadMap();
-        getIxList();
-    });
-    
-    function loadMap() {
-        if (!networkMap) return;
-        if (!networkMap.dataset.src) return;
-	    networkMap.src = networkMap.dataset.src;
-    }
-    
-    function getIxList() {
-        if (!ixTable) return;
-        
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://as211869.net/api/exchanges');
-        xhr.onload = function() {
-            var data = JSON.parse(this.responseText);
-            var table = document.createElement('table');
-            table.classList = 'table';
-            table.appendChild(createTableHeaderRow(
-                'Exchange',
-                'Speed',
-                'RS Peer'
-            ));
-            
-            for (var i = 0; i < data.length; i++) {
-                table.appendChild(createTableRow(
-                    createLink(data[i].name, `https://www.peeringdb.com/ix/${data[i].peeringDbId}`).outerHTML,
-                    `${data[i].speed}Mbps`,
-                    data[i].rsPeer
-                ));
-            }
-            
-            ixTable.appendChild(table);
-        };
-        
-        xhr.onerror = function() {
-            var errorElem = document.createElement('div');
-            errorElem.classList = 'alert alert-warning';
-            errorElem.innerText = 'Failed to load internet exchange data';
-            ixTable.append(errorElem);
-        };
-        
-        xhr.send();
-    }
-    
-    function createTableHeaderRow(...data) {
-        var row = document.createElement('tr');
-        
-        for (var i = 0; i < data.length; i++) {
-            let rowData = document.createElement('th');
-            rowData.innerHTML = data[i];
-            row.appendChild(rowData);
-        }
-        
-        return row;
-    }
-    
-    function createTableRow(...data) {
-        var row = document.createElement('tr');
-        
-        for (var i = 0; i < data.length; i++) {
-            let rowData = document.createElement('td');
-            rowData.innerHTML = data[i];
-            row.appendChild(rowData);
-        }
-        
-        return row;
-    }
-    
-    function createLink(text, url, target = '_blank') {
-       var link = document.createElement('a');
-        link.innerText = text;
-        link.target = target;
-        link.href = url;
-        
-        return link;
-    }
-</script>
+    <div class="container" style="margin-top: 16px;">
+        <h1>404 Not Found</h1>
+        <p>The requested page could not be found</p>
     </div>
     <div class="footer-dark">
         <footer>
@@ -266,6 +169,38 @@ function ccLoaded() {
 
 
 <script>
+		window.addEventListener('load', function() {
+			var twLL = document.getElementsByClassName('tw-ll');
+			
+			for (var i = 0; i < twLL.length; i++) {
+				var dataResourceURL = twLL[i].dataset.href || twLL[i].dataset.src;
+				var re = /\/.[a-z0-9.]+\.([a-z]+)$/gm;
+				var type = re.exec(dataResourceURL)[1];
+				
+				if (type === 'css') {
+					twLL[i].href = twLL[i].dataset.href;
+				} else if (type === 'js') {
+					twLL[i].src = twLL[i].dataset.src;
+				}
+			}
+		});
+	</script><script>
+		window.addEventListener('load', function() {
+			var twLL = document.getElementsByClassName('tw-ll');
+			
+			for (var i = 0; i < twLL.length; i++) {
+				var dataResourceURL = twLL[i].dataset.href || twLL[i].dataset.src;
+				var re = /\/.[a-z0-9.]+\.([a-z]+)$/gm;
+				var type = re.exec(dataResourceURL)[1];
+				
+				if (type === 'css') {
+					twLL[i].href = twLL[i].dataset.href;
+				} else if (type === 'js') {
+					twLL[i].src = twLL[i].dataset.src;
+				}
+			}
+		});
+	</script><script>
 		window.addEventListener('load', function() {
 			var twLL = document.getElementsByClassName('tw-ll');
 			
