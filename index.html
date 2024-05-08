@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html><html lang="en" data-mantine-color-scheme="dark"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>TrueWinter</title>
@@ -9,8 +9,16 @@
     <meta property="og:type" content="website">
     <meta name="description" content="I&apos;m TrueWinter, a software and website developer from South Africa. I also find and responsibly disclose security vulnerabilities.">
     <meta name="twitter:description" content="I&apos;m TrueWinter, a software and website developer from South Africa. I also find and responsibly disclose security vulnerabilities.">
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "WebSite",
+            "name": "TW",
+            "url": "https://truewinter.dev"
+        }
+    </script>
     <link rel="icon" type="image/jpeg" sizes="16x16" href="/assets/img/logo_16.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.0/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.6.1/darkly/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&amp;display=swap">
     <link rel="stylesheet" class="tw-ll" data-href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="/assets/css/styles.min.css">
@@ -153,198 +161,19 @@
             </table>
         </div>
         <h1 id="contact">Contact</h1>
-        <div class="contact-clean" style="padding: 16px 0px;">
-            <form id="contact-form" method="post" style="padding: 0px;">
-                <div id="contact-form-result"></div>
-                <div class="form-group"><label class="sr-only" for="tw-cf-name">Name</label><input class="form-control" type="text" id="tw-cf-name" name="name" placeholder="Name"></div>
-                <div class="form-group"><label class="sr-only" for="tw-cf-email">Email</label><input class="form-control" type="email" id="tw-cf-email" name="email" placeholder="Email"></div>
-                <div class="form-group"><label class="sr-only" for="tw-cf-message">Message</label><textarea class="form-control" id="tw-cf-message" name="message" placeholder="Message" rows="14"></textarea></div>
-                <div class="form-group"><div class="g-recaptcha d-inline-flex" data-sitekey="6LeIjiwUAAAAAJTldNRQIgPEgF-FF8Arsym0CFNW" data-theme="dark" data-callback="recaptchaCallback" data-expired-callback="recaptchaExpiredCallback"></div>
-<script id="recaptcha-lazy" data-src="https://www.google.com/recaptcha/api.js"></script>
-
-<script>
-		var doNotSetURLToHome = false;
-		var bsDoNotSetURL = false;
-		    
-        window.addEventListener('load', function() {
-			$("#contact-form").submit(function (e) {
-				e.preventDefault();
-				var post = true;
-				$('[name="email"]').first().removeClass('invalid-form-data');
-				$('[name="name"]').first().removeClass('invalid-form-data');
-				$('[name="message"]').first().removeClass('invalid-form-data');
-				if (recaptcha) {
-					$(".g-recaptcha").first().removeClass('invalid-form-data');
-				}
-				var red = "#F66";
-				if (!($('[name="email"]')[0].value.match(/^[a-zA-Z0-9-.]+@[a-zA-Z0-9-.]+\.[a-zA-Z]{2,6}$/gi))) {
-					$('[name="email"]').first().addClass('invalid-form-data');
-					post = false;
-				}
-				if(!($('[name="name"]')[0].value.match(/^[a-zA-Z0-9\'\- ]+$/gi))) {
-					$('[name="name"]').first().addClass('invalid-form-data');
-					post = false;
-				}
-				if ($('[name="message"]')[0].value == "") {
-					$('[name="message"]').first().addClass('invalid-form-data');
-					post = false;
-				}
-				if (grecaptcha) {
-					if (grecaptcha.getResponse() === "") {
-						$(".g-recaptcha").first().addClass('invalid-form-data');
-						post = false;
-					}
-				}
-				if (post) {
-					$('#contact-form-btn').hide();
-					$('#contact-form-spinner').show();
-					$.ajax({
-						type: "POST",
-						data : $(this).serialize(),
-						cache: false,
-						url: 'https://contact.nicholis.co.za/truewinter/contact.php',
-						success: function(data){
-							$('#contact-form-btn').show();
-							$('#contact-form-spinner').hide();
-							$("#contact-form-result").html(data.message);
-							if (data.sent === false) {
-								$("#contact-form-result")[0].style = "background-color:"+red+";border-radius:5px;padding:10px;margin-bottom:8px;color:white;";
-							} else {
-								$("#contact-form-result")[0].style = "background-color:rgb(44, 98, 33);border-radius:5px;padding:10px;margin-bottom:8px;display:inline-block;color:white;";
-								$("#contact-form")[0].reset();
-							}
-							if (grecaptcha) {
-								grecaptcha.reset();
-							}
-							$("html, body").animate({
-								scrollTop: $("#contact").offset().top - 100
-							}, 500);
-						}
-					});
-				} else {
-                    $('.invalid-form-data').off('input');
-                    $('.invalid-form-data').on('input', function(e) {
-                        if ($(e.target).val() === "") {
-                            $(e.target).addClass('invalid-form-data');
-                        } else {
-                            $(e.target).removeClass('invalid-form-data');
-                        }
-                    });
-					$("html, body").animate({
-						scrollTop: $("#contact").offset().top - 100
-					}, 500);
-				}
-				return false;
-			});
-            
-            // https://coderwall.com/p/fnvjvg/jquery-test-if-element-is-in-viewport
-    
-            $.fn.isOnScreen = function() {
-
-                var win = $(window);
-
-                var viewport = {
-                    top : win.scrollTop(),
-                    left : win.scrollLeft()
-                };
-                viewport.right = viewport.left + win.width();
-                viewport.bottom = viewport.top + win.height();
-
-                var bounds = this.offset();
-                bounds.right = bounds.left + this.outerWidth();
-                bounds.bottom = bounds.top + this.outerHeight();
-
-                return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
-
-            }
-            
-            function loadRecaptchaIfInViewport() {
-                if($('.g-recaptcha').isOnScreen()) {
-                    if (!$('#recaptcha-lazy').attr('src')) {
-                        $('#recaptcha-lazy').attr('src', $('#recaptcha-lazy').data('src'));
-                    }
-                }
-            }
-            
-            if (location.hash && $(location.hash).length > 0) {
-                $('html,body').animate({
-                    scrollTop: $(location.hash).offset().top - $('.navbar').outerHeight()
-                });
-            }
-            
-            $('body').scrollspy({ target: 'body', offset: $('.navbar').outerHeight() * 3 });
-            $(window).on('activate.bs.scrollspy', function (e) {
-                if (!bsDoNotSetURL) {
-                    var u = new URL($('.navbar .active')[0].href);
-                    history.pushState(null, null, '/'+u.hash);
-                }
-            });
-            $(window).on('scroll', function() {
-                if ($('.navbar .active').length === 0 && !doNotSetURLToHome) {
-                    history.pushState(null, null, '/');
-                }
-            });
-            
-            /*var l = $('.navbar .nav-link');
-
-            for (var i = 0; i < l.length; i++) {
-                if (l[i].href.indexOf('#') > 1 && l[i].href.indexOf(location.host) > 1) {
-					//console.log('hi');
-					if (location.pathname !== '/') {
-						console.log($(l[i]).attr('href'));
-						//$(l[i]).attr('href', '/' + $(l[i]).attr('href')); 
-					}
-                    $(l[i]).on('click', function(e) {
-                        e.preventDefault();
-                        var u = new URL(e.target.href);
-                        //console.log(u.hash);
-                        if ($(u.hash).length > 0) {
-                            doNotSetURLToHome = true;
-                            bsDoNotSetURL = true;
-                            $('html,body').animate({
-                                scrollTop: $(u.hash).offset().top - $('.navbar').outerHeight()
-                            });
-                            history.pushState(null, null, '/'+u.hash);
-                            setTimeout(function() {
-                                doNotSetURLToHome = false;
-                                bsDoNotSetURL = false;
-                            },500);
-                        }
-                    });
-                }
-            }*/
-            
-            $('.navbar-brand').on('click', function(e) {
-                e.preventDefault();
-                doNotSetURLToHome = true;
-                bsDoNotSetURL = true;
-                $('html,body').animate({
-                    scrollTop: $('body').offset().top
-                });
-                history.pushState(null, null, '/');
-                setTimeout(function() {
-                    doNotSetURLToHome = false;
-                    bsDoNotSetURL = false;
-                },500);
-            });
-            
-            $(window).on('scroll', function() {
-                loadRecaptchaIfInViewport();
-            });
-            
-            loadRecaptchaIfInViewport();
-            
-            window.recaptchaCallback = function() {
-                $(".g-recaptcha").first().removeClass('invalid-form-data');
-            }
-            
-            window.recaptchaExpiredCallback = function() {
-                $(".g-recaptcha").first().addClass('invalid-form-data');
-            }
-        });
-	</script></div>
-                <div class="form-group"><button class="btn btn-primary" id="contact-form-btn" type="submit">send </button><span class="spinner-border text-success" role="status" id="contact-form-spinner" style="display:none;"></span></div>
-            </form>
+        <div style="padding: 16px 0px;">
+            <div id="snowmail"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/snowmail@0.0.4/dist/main/styles.min.css">
+<script type="module">
+    import { render } from 'https://cdn.jsdelivr.net/npm/snowmail@0.0.4/dist/main/index.mjs';
+  render({
+    element: document.getElementById('snowmail'),
+    url: 'https://snowmail.binaryfrost.net',
+    id: '663b83c651db8d58fc58b85d',
+    providerProps: {
+        defaultColorScheme: 'dark'
+    }
+  });
+</script>
         </div>
     </div>
     <div class="footer-dark">
@@ -465,9 +294,9 @@ function ccLoaded() {
 <link rel="stylesheet" class="tw-ll" data-href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
 
 <!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;f604a9d9c3db465eb95a2daaf0686aa0&quot;}"></script><!-- End Cloudflare Web Analytics -->
-<script async data-website-id="e1f76aff-3356-4a26-a183-7b3e813f9e4a" data-host-url="https://umami.truewinter.net" src="https://cdn-g.truewinter.net/umami/umami.js"></script>
+<script async defer data-website-id="1ce3a16c-0ebe-4460-a7ea-78e0e6870ae7" data-host-url="https://umami.truewinter.net" src="https://cdn-g.truewinter.net/umami/umami.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/js/script.min.js"></script>
 
 
