@@ -9,6 +9,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.10.1"
+    "@astrojs/sitemap": "^3.4.1",
+    "@binaryfrost/snowcms-client": "^0.0.8",
+    "@truewinter/astro-common": "^1.0.7",
+    "astro": "^5.10.1",
+    "astro-icon": "^1.1.5",
+    "astro-og-canvas": "^0.7.0",
+    "astro-purgecss": "^5.2.3",
+    "astro-remote": "^0.3.4",
+    "bootstrap": "^5.3.7",
+    "snowmail": "^0.1.6"
+  },
+  "devDependencies": {
+    "@iconify-json/bi": "^1.2.4"
   }
 }

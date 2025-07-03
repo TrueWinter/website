@@ -1,0 +1,141 @@
+---
+import Link from '../components/Link.astro';
+import NetworkMap from '../components/NetworkMap.astro';
+import Layout from '../layouts/Layout.astro';
+
+---
+
+<Layout title="AS211869">
+  <h1>AS211869</h1>
+
+  <p>
+    I operate AS211869 for research/educational purposes. It consists of the following prefixes:
+  </p>
+
+  <ul>
+    <li>2a0e:8f02:2150::/44</li>
+    <li>2a06:a005:1300::/44</li>
+  </ul>
+
+  <p>I currently announce these from servers in Germany, London, and South Africa.</p>
+
+  <p>
+    Feel free to contact me for peering (over a mutual internet exchange or a GRE tunnel).
+    Please note that peers will not receive all AS211869 prefixes unless otherwise agreed upon,
+    and that prefix announcements may differ in different locations.
+  </p>
+
+  <p>
+    A looking glass is available at <Link url="https://lg.as211869.net" text="lg.as211869.net" />. 
+    An IPv6-only website is available at
+    <Link url="https://ipv6-only.as211869.net" text="ipv6-only.as211869.net" />.
+  </p>
+
+  <p>
+    A tool to find mutual internet exchanges is available at
+    <Link url="https://mutual-ix.as211869.net" text="mutual-ix.as211869.net" />.
+  </p>
+
+  <p>
+    AS211869 runs mostly on the same servers that are used in my
+    <Link url="/dn42/" text="DN42 network" />. A full network map has been included below:
+  </p>
+
+  <NetworkMap />
+
+  <h2>Internet Exchanges</h2>
+
+  <p>AS211869 is on a few internet exchanges, which are listed below:</p>
+
+  <internet-exchanges>
+    <div class="spinner-border" role=status>
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </internet-exchanges>
+
+  <script>
+    interface Exchange {
+      name: string
+      peeringDbId: number
+      rsPeer: boolean
+      speed: number
+    }
+
+    function createRow(exchange: Exchange): HTMLTableRowElement {
+      const tr = document.createElement('tr');
+
+      const tdExchange = document.createElement('td');
+      const tdExchangeLink = document.createElement('a');
+      tdExchangeLink.href = `https://www.peeringdb.com/ix/${exchange.peeringDbId}`;
+      tdExchangeLink.innerText = exchange.name;
+      tdExchangeLink.target = '_blank';
+      tdExchangeLink.rel = 'noopener';
+      tdExchange.appendChild(tdExchangeLink);
+      tr.appendChild(tdExchange);
+
+      const tdSpeed = document.createElement('td');
+      tdSpeed.innerText = `${exchange.speed}Mbps`;
+      tr.appendChild(tdSpeed);
+
+      const tdRsPeer = document.createElement('td');
+      tdRsPeer.innerText = String(exchange.rsPeer);
+      tr.appendChild(tdRsPeer);
+
+      return tr;
+    }
+
+    function createTable(exchanges: Exchange[]): HTMLTableElement {
+      const table = document.createElement('table');
+      table.classList.add('table');
+
+      const thead = document.createElement('thead');
+      const tr = document.createElement('tr');
+
+      const headings = ['Exchange', 'Speed', 'RS Peer'];
+      headings.forEach((heading) => {
+        const th = document.createElement('th');
+        th.innerText = heading;
+        tr.appendChild(th);
+      });
+
+      thead.appendChild(tr);
+      table.appendChild(thead);
+
+      const tbody = document.createElement('tbody');
+      exchanges.forEach((exchange) => {
+        tbody.appendChild(createRow(exchange));
+      });
+
+      table.append(tbody);
+
+      return table;
+    }
+
+    class InternetExchanges extends HTMLElement {
+      connectedCallback() {
+        fetch('https://as211869.net/api/exchanges')
+          .then((resp) => resp.json())
+          .then((exchanges: Exchange[]) => {
+            console.log(exchanges);
+
+            const tableContainer = document.createElement('div');
+            tableContainer.classList.add('table-responsive');
+
+            const table = createTable(exchanges);
+
+            tableContainer.appendChild(table);
+            this.replaceChildren(tableContainer);
+          })
+          .catch((err) => {
+            const error = document.createElement('p');
+            error.style.color = 'red';
+            error.innerText = `An error occurred: ${err}`;
+
+            this.replaceChildren(error);
+          });
+      }
+    }
+
+    customElements.define('internet-exchanges', InternetExchanges);
+  </script>
+</Layout>

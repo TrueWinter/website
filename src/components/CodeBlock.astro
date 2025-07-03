@@ -1,0 +1,21 @@
+---
+import { Code } from 'astro:components';
+import { bundledLanguages, type BundledLanguage } from 'shiki';
+
+const code = await Astro.slots.render('default');
+const classes: string = Astro.props.class;
+const language = classes?.split(' ')
+  .find((c) => c.startsWith('language-'))?.replace('language-', '');
+---
+
+{language && language in bundledLanguages ? (
+  <Code class="code-block" code={code} lang={language as BundledLanguage} />
+) : (
+  <code set:html={code} />
+)}
+
+<style>
+  .code-block {
+    padding: 12px;
+  }
+</style>

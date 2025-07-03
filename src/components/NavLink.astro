@@ -1,0 +1,47 @@
+---
+export enum ACTIVE_MATCH_STRATEGY {
+  EXACT,
+  PREFIX
+}
+
+interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
+  href: string
+  children: string | HTMLElement
+  class?: string
+  /** Override the component's active link check */
+  active?: boolean
+  /** Override the component's active link check strategy */
+  activeMatchStrategy?: ACTIVE_MATCH_STRATEGY
+}
+
+const {
+  href,
+  children,
+  class: classAttr,
+  active,
+  activeMatchStrategy = ACTIVE_MATCH_STRATEGY.EXACT,
+  ...props
+} = Astro.props;
+
+function checkIfActive() {
+  const { pathname } = Astro.url;
+
+  switch (activeMatchStrategy) {
+    case ACTIVE_MATCH_STRATEGY.EXACT:
+      return pathname === href;
+    case ACTIVE_MATCH_STRATEGY.PREFIX:
+      return pathname.startsWith(href);
+  }
+}
+
+const isActive = active ?? checkIfActive();
+---
+
+<a
+  class:list={[classAttr || 'nav-link', { active: isActive }]}
+  aria-current="page"
+  href={href}
+  {...props}
+>
+  <slot />
+</a>

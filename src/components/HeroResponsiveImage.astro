@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+
+export interface Props {
+  image: ImageMetadata
+  width: 'desktop' | 'mobile'
+}
+
+const WIDTHS: Record<Props['width'], number> = {
+  desktop: 1920,
+  mobile: 400
+};
+
+const { image, width } = Astro.props;
+---
+
+<Image
+  src={image}
+  width={WIDTHS[width]}
+  height={350}
+  layout={width === 'desktop' ? 'full-width' : undefined}
+  alt=""
+  class={`hero-img hero-img-${width}`} />
+
+<style>
+  .hero-img {
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+  }
+
+  @media (max-width: 400px) {
+    .hero-img-desktop {
+      display: none;
+    }
+  }
+
+  @media (min-width: 400px) {
+    .hero-img-mobile {
+      display: none;
+    }
+  }
+</style>

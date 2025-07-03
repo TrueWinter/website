@@ -1,0 +1,17 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getSortedBlogPosts } from '../../../cms';
+import PostCard from '../../components/PostCard.astro';
+
+const blogPosts = await getSortedBlogPosts();
+---
+
+<Layout title="Blog">
+	<h1>Blog</h1>
+  
+  <div class="row g-4">
+    {blogPosts.map((post) => (
+      <PostCard {...post.data} />
+    ))}
+  </div>
+</Layout>

@@ -1,22 +1,193 @@
+---
+import { getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
+import NavLink, { ACTIVE_MATCH_STRATEGY } from '../components/NavLink.astro';
+import SocialIcons from '../components/SocialIcons.astro';
+import FooterLinks from '../components/FooterLinks.astro';
+import { UmamiAnalytics, ViewTransitions } from '@truewinter/astro-common';
+
+import 'bootstrap/dist/css/bootstrap.css';
+
+interface Props {
+  title?: string,
+  description?: string
+  image?: string
+}
+
+import heroImg from '../assets/img/20200730_190232_ec.jpg';
+import logo from '../assets/img/logo.jpg';
+import HeroImage from '../components/HeroImage.astro';
+
+const logo64 = await getImage({
+  src: logo,
+  height: 64
+});
+
+const logo512 = await getImage({
+  src: logo,
+  height: 512
+});
+
+const {
+  description = 'I\'m TrueWinter, a software and website developer from South Africa. I also find and responsibly disclose security vulnerabilities.',
+  image = logo512.src
+} = Astro.props;
+
+const title = Astro.props.title ? `${Astro.props.title} | TrueWinter` : 'TrueWinter';
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark" data-mantine-color-scheme="dark">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+
+    <link rel="canonical" href={canonicalUrl}>
+    <link rel="icon" type="image/jpeg" href={logo64.src}>
+    <meta name="twitter:image" content={image}>
+    <meta property="og:image" content={image}>
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website">
+    <meta name="description" content={description}>
+    <meta name="twitter:description" content={description}>
+
+    <ViewTransitions />
 	</head>
 	<body>
-		<slot />
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <NavLink class="navbar-brand" href="/" active={false}>
+          <Image src={logo} height="64" densities={[1, 2, 4]} alt="Logo" />
+        </NavLink>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <div class="navbar-nav">
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/projects/">Projects</NavLink>
+            <NavLink href="/blog/" activeMatchStrategy={ACTIVE_MATCH_STRATEGY.PREFIX}>Blog</NavLink>
+            <NavLink href="/contact/">Contact</NavLink>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <HeroImage image={heroImg} />
+      <HeroImage image={heroImg} />
+
+      <div class="hero-content">
+        <div class="d-block">
+          <p class="h1 text-center">TrueWinter</p>
+          <SocialIcons />
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-3">
+		  <slot />
+    </div>
+
+    <footer class="bg-body-tertiary mt-4 pt-4 pb-1">
+      <div class="container">
+        <div class="row mb-4 gy-4">
+          <div class="col-sm-6 col-md-3 item">
+            <p class="h4">Useful Links</p>
+            <FooterLinks links={[{
+              url: 'https://status.truewinter.dev',
+              text: 'Status'
+            }, {
+              url: '/cv_redacted.pdf',
+              text: 'CV',
+              event: 'footer-cv'
+            }, {
+              url: '/dn42/',
+              text: 'DN42'
+            }, {
+              url: '/as211869/',
+              text: 'AS211869'
+            }, {
+              url: 'https://binaryfrost.net',
+              text: 'Website Development',
+              event: 'footer-webdev'
+            }]} />
+          </div>
+
+          <div class="col-sm-6 col-md-3 item">
+            <p class="h4">Legal</p>
+            <FooterLinks links={[{
+              url: '/legal/privacy/',
+              text: 'Privacy Policy'
+            }, {
+              url: '/legal/security/',
+              text: 'Security'
+            }, {
+              url: '/legal/disclaimer/',
+              text: 'Email Disclaimer'
+            }]} />
+          </div>
+
+          <div class="col-md-6 item text">
+            <p class="h4">Disclaimer</p>
+            <p>
+              Opinions expressed here are my own and may not reflect those of my employer,
+              colleagues, or any other group or entity that I may be associated with.
+            </p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center flex-column gap-2">
+          <SocialIcons />
+          <p class="text-secondary-emphasis mt-2">Nicholis du Toit &copy; 2020 - {new Date().getFullYear()}</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      import 'bootstrap/dist/js/bootstrap';
+    </script>
+
+    <UmamiAnalytics
+      api="https://umami.binaryfrost.net"
+      websiteId="1ce3a16c-0ebe-4460-a7ea-78e0e6870ae7"
+      src="https://cdn.websitestatic.com/umami/umami.js"
+      vt />
 	</body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  :root {
+    --hero-height: 350px;
+  }
+
+  .hero {
+    height: var(--hero-height);
+  }
+
+  .hero-content {
+    height: var(--hero-height);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+</style>
+
+<style is:global>
+  .card-link {
+    text-decoration: none;
+  }
+
+  .card-link:hover .card {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  }
 </style>

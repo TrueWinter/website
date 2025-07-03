@@ -1,0 +1,17 @@
+---
+import HeroResponsiveImage, { type Props as ImageProps } from './HeroResponsiveImage.astro';
+
+interface Props {
+  image: ImageProps['image']
+}
+
+const { image } = Astro.props;
+const widths = [
+  'desktop',
+  'mobile'
+] satisfies ImageProps['width'][];
+---
+
+{widths.map((width) => (
+  <HeroResponsiveImage image={image} width={width} />
+))}

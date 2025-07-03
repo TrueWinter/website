@@ -1,0 +1,43 @@
+---
+import Link from '../components/Link.astro';
+import Layout from '../layouts/Layout.astro';
+import NetworkMap from '../components/NetworkMap.astro';
+
+---
+
+<Layout title="DN42">
+  <h1>DN42</h1>
+
+  <p>
+    I am on the DN42 network. I have a selective peering policy, but feel free to contact me
+    if you'd like to peer. Please note that at this time, my DN42 network should not be
+    expected to be online at all times.
+  </p>
+
+  <h2>Network Information</h2>
+
+  <p>
+    My network consists of a VPS in Germany, and a Raspberry Pi at my house in South Africa.
+    Peering is only possible through the German server using WireGuard.
+  </p>
+
+  <p>
+    <strong>ASN</strong>: AS4242420737
+    <br />
+    <strong>IPv4</strong>: 172.20.207.192/27
+    <br />
+    <strong>IPv6</strong>: fd49:5b5:b737::/48
+    <br />
+    <strong>Looking Glass</strong>:
+      <Link url="https://lg.truewinter.dn42" text="lg.truewinter.dn42" /> or
+      <Link url="https://lg.dn42.truewinter.dev" text="lg.dn42.truewinter.dev" />
+  </p>
+
+  <p>
+    My DN42 network runs mostly on the same servers that are used in the
+    <Link url="/as211869/" text="AS211869" /> network. A full network map
+    has been included below:
+  </p>
+
+  <NetworkMap />
+</Layout>

@@ -1,0 +1,15 @@
+---
+import Link, { type Props as LinkProps } from './Link.astro';
+
+interface Props {
+  links: LinkProps[]
+}
+
+const { links } = Astro.props;
+---
+
+<div class="d-flex flex-column gap-1">
+  {links.map((link) => (
+    <Link {...link} />
+  ))}
+</div>

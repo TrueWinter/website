@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import { inferRemoteSize } from 'astro/assets/utils';
+
+interface Props {
+  src: string | ImageMetadata
+  alt?: string
+}
+
+const { src, alt } = Astro.props;
+
+const isRemoteImage = typeof src === 'string';
+
+const size = isRemoteImage ? await inferRemoteSize(src) : {
+  width: src.width,
+  height: src.height
+};
+
+const MAX_WIDTH = 1200;
+let { width, height } = size;
+if (width > MAX_WIDTH) {
+  let originalWidth = width;
+  width = MAX_WIDTH;
+  height = (height / originalWidth) * MAX_WIDTH;
+}
+
+const sizesMap: Record<number, number> = {
+  360: 360,
+  540: 540,
+  720: 720,
+  1600: 1600
+};
+
+// Set removes duplicates
+const widths = [...new Set(
+  [...Object.keys(sizesMap).map(Number), width, MAX_WIDTH]
+    .filter((w) => w <= width)
+)];
+
+const sizes = widths.map((width) => {
+  if (width in sizesMap) {
+    return `(max-width: ${sizesMap[width]}px) ${width}px`;
+  }
+
+  return `${width}px`;
+}).join(', ');
+---
+
+{/* @ts-ignore TypeScript gets a bit confused with the types here, even though all attributes used are available to both local and remote attributes */}
+<Image src={src} class="article-image" width={width} height={height} widths={widths} sizes={sizes} alt={alt || ''} />
+
+<style>
+  .article-image {
+    height: auto;
+    max-width: 100%;
+  }
+</style>

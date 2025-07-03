@@ -1,0 +1,29 @@
+---
+import { Icon } from 'astro-icon/components';
+import Link from './Link.astro';
+
+interface Props {
+  icon: string
+  label: string
+  url: string
+}
+
+const { icon, label, url } = Astro.props;
+---
+
+<Link
+  url={url}
+  aria-label={label}
+  class="social-icon mx-3"
+  event={`social-${label.toLowerCase()}`}>
+  <Icon name={icon} size={24} />
+</Link>
+
+<style>
+  .social-icon {
+    color: white;
+    border: 1px solid white;
+    padding: 8px;
+    border-radius: 50%;
+  }
+</style>

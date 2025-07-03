@@ -1,0 +1,28 @@
+---
+import { formatDateTime } from '../util/date';
+import Link from './Link.astro';
+
+interface Props {
+  title: string
+  slug: string
+  date: number
+  description: string
+  heading?: 'h2' | 'h3'
+}
+
+const { title, slug, date, description, heading = 'h2' } = Astro.props;
+const Heading = heading;
+const formattedDate = formatDateTime(date);
+---
+
+<div class="col-12 col-lg-4">
+  <Link class="card-link" url={`/blog/${slug}/`} aria-label={`Read post: ${title}`}>
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <Heading class="card-title">{title}</Heading>
+        <p class="card-subtitle text-body-secondary mb-2">{formattedDate}</p>
+        <p class="card-text flex-grow-1">{description}</p>
+      </div>
+    </div>
+  </Link>
+</div>

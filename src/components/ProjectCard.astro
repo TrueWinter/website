@@ -1,0 +1,20 @@
+---
+import type { Project } from '../../cms'
+import Link from './Link.astro';
+type Props = Project;
+
+const { name, url, description } = Astro.props;
+---
+
+<Link
+  class="card-link"
+  url={url}
+  aria-label={`View project: ${name}`}
+  event={`project-${name.toLowerCase()}`}>
+  <div class="card h-100">
+    <div class="card-body d-flex flex-column">
+      <h2 class="card-title">{name}</h2>
+      <p class="card-text flex-grow-1">{description}</p>
+    </div>
+  </div>
+</Link>

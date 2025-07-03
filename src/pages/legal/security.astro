@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+---
+
+<Layout title="Security">
+  <h1>Security</h1>
+  <p> While researching security vulnerabilities, it is requested that you refrain from: </p>
+  <ul>
+    <li>Denial of service attacks</li>
+    <li>Spamming</li>
+    <li>Social engineering (including phishing)</li>
+    <li>Any physical attempts against data centers or offices</li>
+    <li>Accessing confidential information such as financial resources, emails, etc. If you do access any of these resources, it is requested that you <strong>immediately</strong> stop testing, delete any confidential information you gathered and email me.</li>
+    <li>High volume automated scanning without prior permission</li>
+  </ul>
+  <p> Please include the following in your report: </p>
+  <ul>
+    <li>Description of the vulnerability</li>
+    <li>Steps to reproduce the vulnerability</li>
+    <li>Proof of exploitability (such as a screenshot or video)</li>
+    <li>Impact</li>
+    <li>CVSSv3 Score</li>
+    <li>Proof of Concept</li>
+    <li>Browser, OS, and, if applicable, app version used during testing</li>
+    <li>IP Address(es) from which testing was done</li>
+  </ul>
+  <p><strong>Please note that no monetary rewards will be given for security issues reported.</strong></p>
+  <p>To report a security vulnerability, please send a short summary of the vulnerability using the contact form at <a href="/contact/">https://truewinter.dev/contact/</a>. I will then email you back to request further information.</p>
+  <h2>In scope:</h2>
+  <ul>
+    <li>*.truewinter.dev</li>
+    <li>*.truewinter.cloud</li>
+    <li>*.truewinter.net</li>
+    <li>*.truewinter.xyz</li>
+    <li>*.twdns.top</li>
+    <li>*.t3.cx (Please do <strong>not</strong> do automated scanning against <em>t3.cx</em>, <em>www.t3.cx</em> or <em>origin.t3.cx</em> without permission)</li>
+    <li>*.framed-app.com (Please do <strong>not</strong> do automated scanning against <em>cf-api.framed-app.com</em> without permission)</li>
+    <li>*.ndt3.me</li>
+    <li><a href="/dn42">My DN42 Network</a></li>
+    <li><a href="/as211869">AS211869</a></li>
+    <li>Software</li>
+  </ul>
+  <h2>Out of Scope:</h2>
+  <ul>
+    <li>*.e.truewinter.dev (SendGrid)</li>
+    <li>*.za-int.truewinter.cloud (Used for internal servers not accessible on the internet)</li>
+    <li>*.nicholis.co.za (Testing and internal services domain)</li>
+    <li>*.nicholisdutoit.co.za (Testing domain)</li>
+    <li>cdn.truewinter.net</li>
+    <li>cdn-b.truewinter.net</li>
+    <li>*.twssl.top</li>
+    <li>Spamming forms (contact forms, comments, etc.) is forbidden, and may result in your IP address being blocked as well as any associated accounts being suspended.</li>
+    <li>Self XSS</li>
+    <li>Missing cookie flags</li>
+    <li>SSL/TLS Best Practices</li>
+    <li>Login/Logout/Unauthenticated CSRF</li>
+    <li>Incomplete/Missing SPF/DKIM</li>
+    <li>Clickjacking</li>
+    <li>Known vulnerabilities in libraries without proof of concept</li>
+    <li>Archived repositories on GitHub</li>
+    <li>Repositories marked as not production ready</li>
+  </ul>
+</Layout>

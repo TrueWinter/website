@@ -1,0 +1,12 @@
+---
+import { getSortedBlogPosts } from '../../cms';
+import PostCard from './PostCard.astro';
+
+const blogPosts = await getSortedBlogPosts();
+---
+
+<div class="row g-4">
+  {blogPosts.slice(0, 3).map((post) => (
+    <PostCard {...post.data} heading="h3" />
+  ))}
+</div>

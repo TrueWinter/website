@@ -1,0 +1,53 @@
+---
+interface CommonProps extends astroHTML.JSX.AnchorHTMLAttributes {
+  url: string
+  event?: string
+}
+
+interface PropsWithText extends CommonProps {
+  text: string
+  children?: never
+}
+
+interface PropsWithChildren extends CommonProps {
+  children: any
+  text?: never
+}
+
+export type Props = PropsWithText | PropsWithChildren;
+
+const { url, text, event, ...props } = Astro.props;
+
+type AnchorProps = astroHTML.JSX.AnchorHTMLAttributes;
+
+const externalUrlProps: AnchorProps = {
+  target: '_blank',
+  rel: 'noopener'
+};
+
+const isExternalUrl = url.startsWith('https://') || !!event;
+---
+
+<a
+  href={url}
+  {...(isExternalUrl ? externalUrlProps : {})}
+  {...props}
+  data-event={event || undefined}
+><slot>{text}</slot></a>
+
+<script>
+  // Can't use Umami's built-in data attribute as it ignores _blank links
+  document.querySelectorAll('a[data-event]').forEach((elem) => {
+    const link = elem as HTMLAnchorElement;
+    const event = link.dataset.event;
+    const isExternal = link.target === '_blank';
+    if (!event || !isExternal) return;
+    
+    link.addEventListener('click', (e) => {
+      if ('umami' in window) {
+        // @ts-ignore
+        umami.track(event);
+      }
+    });
+  });
+</script>

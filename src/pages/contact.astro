@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContactForm from 'snowmail/astro/ContactForm.astro';
+---
+
+<Layout title="Contact">
+	<h1>Contact</h1>
+
+  <ContactForm
+    url="https://snowmail.binaryfrost.net"
+    id="663b83c651db8d58fc58b85d"
+    providerProps={{
+      defaultColorScheme: 'dark'
+    }}
+    ssr />
+</Layout>

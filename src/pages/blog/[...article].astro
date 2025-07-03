@@ -1,0 +1,54 @@
+---
+import type { GetStaticPaths } from "astro";
+import { Markup } from 'astro-remote';
+import Layout from '../../layouts/Layout.astro';
+import { getSortedBlogPosts } from '../../../cms';
+import { formatDateTime } from '../../util/date';
+import LargeResponsiveImage from '../../components/LargeResponsiveImage.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+export const getStaticPaths = (async () => {
+  const posts = await getSortedBlogPosts();
+  return posts.map((post) => ({
+    params: {
+      article: post.data.slug
+    },
+    props: {
+      post: post.data
+    }
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+
+const isLegacyPost = (new Date(post.date * 1000)).getFullYear() <= 2021;
+const machineDate = new Date(post.date * 1000).toISOString();
+const formattedDate = formatDateTime(post.date);
+---
+
+<Layout title={post.title} description={post.description} image={`/open-graph/${post.slug}.png`}>
+  <article>
+    <h1>{post.title}</h1>
+    <time datetime={machineDate} class="text-body-secondary h6 mt-6 d-block">{formattedDate}</time>
+
+    {isLegacyPost && (
+      <div class="alert alert-warning">
+        This post was published before 2022. It may not reflect my
+        current opinions nor follow my newer writing standards.
+        Some code blocks or links included in the post may not work
+        as expected.
+      </div>
+    )}
+
+    <Markup content={post.content} components={{
+      img: LargeResponsiveImage,
+      code: CodeBlock
+    }} />
+  </article>
+
+  <style is:global>
+    article video {
+      max-width: 100%;
+    }
+  </style>
+</Layout>

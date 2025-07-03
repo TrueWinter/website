@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getProjects } from '../../cms';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = await getProjects();
+---
+
+<Layout title="Projects" description="These are some of the projects I'm most proud of, showcasing a range of skills and technologies I've worked with.">
+	<h1>Projects</h1>
+
+  <p>
+    These are some of the projects I'm most proud of, showcasing a range of skills
+    and technologies I've worked with.
+  </p>
+
+  <div class="row g-4">
+    {projects.map((project) => (
+      <div class="col-12 col-lg-4">
+        <ProjectCard {...project} />
+      </div>
+    ))}
+  </div>
+
+  <div class="alert alert-info mt-4">
+    For a full list of projects, check my 
+    <a href="https://github.com/TrueWinter" target="_blank" rel="noopener">GitHub profile</a>.
+  </div>
+</Layout>
