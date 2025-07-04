@@ -36,18 +36,37 @@ const isExternalUrl = url.startsWith('https://') || !!event;
 ><slot>{text}</slot></a>
 
 <script>
-  // Can't use Umami's built-in data attribute as it ignores _blank links
-  document.querySelectorAll('a[data-event]').forEach((elem) => {
-    const link = elem as HTMLAnchorElement;
-    const event = link.dataset.event;
-    const isExternal = link.target === '_blank';
-    if (!event || !isExternal) return;
-    
-    link.addEventListener('click', (e) => {
-      if ('umami' in window) {
-        // @ts-ignore
-        umami.track(event);
+  const linkRegistry: [HTMLAnchorElement, () => void][] = [];
+
+  function register() {
+    console.log('Registered event handler');
+
+    // Can't use Umami's built-in data attribute as it ignores _blank links
+    document.querySelectorAll('a[data-event]').forEach((elem) => {
+      const link = elem as HTMLAnchorElement;
+      const event = link.dataset.event;
+      const isExternal = link.target === '_blank';
+      if (!event || !isExternal) return;
+
+      const fn = () => {
+        if ('umami' in window) {
+          // @ts-ignore
+          umami.track(event);
+        }
       }
+      
+      link.addEventListener('click', fn);
+      linkRegistry.push([link, fn]);
     });
+  }
+
+  document.addEventListener('astro:before-swap', () => {
+    linkRegistry.forEach(([link, fn]) => {
+      link.removeEventListener('click', fn);
+    });
+
+    linkRegistry.splice(0, linkRegistry.length);
   });
+
+  document.addEventListener('astro:page-load', register);
 </script>
