@@ -54,7 +54,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description}>
     <meta name="twitter:description" content={description}>
 
-    <ViewTransitions />
+    <!-- <ViewTransitions /> -->
 	</head>
 	<body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -158,7 +158,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
       api="https://umami.binaryfrost.net"
       websiteId="e1f76aff-3356-4a26-a183-7b3e813f9e4a"
       src="https://cdn.websitestatic.com/umami/umami.js"
-      vt />
+      vt={false} />
 	</body>
 </html>
 

@@ -60,7 +60,7 @@ const isExternalUrl = url.startsWith('https://') || !!event;
     });
   }
 
-  document.addEventListener('astro:before-swap', () => {
+  /*document.addEventListener('astro:before-swap', () => {
     linkRegistry.forEach(([link, fn]) => {
       link.removeEventListener('click', fn);
     });
@@ -68,5 +68,6 @@ const isExternalUrl = url.startsWith('https://') || !!event;
     linkRegistry.splice(0, linkRegistry.length);
   });
 
-  document.addEventListener('astro:page-load', register);
+  document.addEventListener('astro:page-load', register);*/
+  register();
 </script>
