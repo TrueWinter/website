@@ -46,6 +46,8 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
     <link rel="canonical" href={canonicalUrl}>
     <link rel="icon" type="image/jpeg" href={logo64.src}>
+    <link rel="preconnect" href="https://cdn.websitestatic.com">
+
     <meta name="twitter:image" content={image}>
     <meta property="og:image" content={image}>
     <meta name="twitter:title" content={title}>
