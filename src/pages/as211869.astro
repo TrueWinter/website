@@ -54,6 +54,8 @@ import Layout from '../layouts/Layout.astro';
   </internet-exchanges>
 
   <script>
+    import hb, { type DOMElement } from 'domhb';
+
     interface Exchange {
       name: string
       peeringDbId: number
@@ -61,54 +63,32 @@ import Layout from '../layouts/Layout.astro';
       speed: number
     }
 
-    function createRow(exchange: Exchange): HTMLTableRowElement {
-      const tr = document.createElement('tr');
-
-      const tdExchange = document.createElement('td');
-      const tdExchangeLink = document.createElement('a');
-      tdExchangeLink.href = `https://www.peeringdb.com/ix/${exchange.peeringDbId}`;
-      tdExchangeLink.innerText = exchange.name;
-      tdExchangeLink.target = '_blank';
-      tdExchangeLink.rel = 'noopener';
-      tdExchange.appendChild(tdExchangeLink);
-      tr.appendChild(tdExchange);
-
-      const tdSpeed = document.createElement('td');
-      tdSpeed.innerText = `${exchange.speed}Mbps`;
-      tr.appendChild(tdSpeed);
-
-      const tdRsPeer = document.createElement('td');
-      tdRsPeer.innerText = String(exchange.rsPeer);
-      tr.appendChild(tdRsPeer);
-
-      return tr;
+    function row(exchange: Exchange): DOMElement {
+      return ['tr', {}, [
+        // Exchange
+        ['td', {},
+          ['a', {
+            href: `https://www.peeringdb.com/ix/${exchange.peeringDbId}`,
+            target: '_blank',
+            rel: 'noopener'
+          }, exchange.name]
+        ],
+        // Speed
+        ['td', {}, `${exchange.speed}Mbps`],
+        // RS Peer
+        ['td', {}, String(exchange.rsPeer)]
+      ]];
     }
 
-    function createTable(exchanges: Exchange[]): HTMLTableElement {
-      const table = document.createElement('table');
-      table.classList.add('table');
-
-      const thead = document.createElement('thead');
-      const tr = document.createElement('tr');
-
-      const headings = ['Exchange', 'Speed', 'RS Peer'];
-      headings.forEach((heading) => {
-        const th = document.createElement('th');
-        th.innerText = heading;
-        tr.appendChild(th);
-      });
-
-      thead.appendChild(tr);
-      table.appendChild(thead);
-
-      const tbody = document.createElement('tbody');
-      exchanges.forEach((exchange) => {
-        tbody.appendChild(createRow(exchange));
-      });
-
-      table.append(tbody);
-
-      return table;
+    function table(exchanges: Exchange[]): DOMElement {
+      return ['table', { className: 'table' }, [
+          ['thead', {},
+            ['tr', {},
+              ['Exchange', 'Speed', 'RS Peer'].map((cols): DOMElement => ['th', {}, cols])
+            ]
+          ],
+          ['tbody', {}, exchanges.map(row)]
+      ]];
     }
 
     class InternetExchanges extends HTMLElement {
@@ -116,22 +96,20 @@ import Layout from '../layouts/Layout.astro';
         fetch('https://as211869.net/api/exchanges')
           .then((resp) => resp.json())
           .then((exchanges: Exchange[]) => {
-            console.log(exchanges);
+            const tblElem: DOMElement = ['div', {
+              className: 'table-responsive'
+            }, table(exchanges)];
 
-            const tableContainer = document.createElement('div');
-            tableContainer.classList.add('table-responsive');
-
-            const table = createTable(exchanges);
-
-            tableContainer.appendChild(table);
-            this.replaceChildren(tableContainer);
+            this.replaceChildren(hb(tblElem));
           })
           .catch((err) => {
-            const error = document.createElement('p');
-            error.style.color = 'red';
-            error.innerText = `An error occurred: ${err}`;
+            const error: DOMElement = ['p', {
+              style: {
+                color: 'red'
+              }
+            }, `An error occurred: ${err}`];
 
-            this.replaceChildren(error);
+            this.replaceChildren(hb(error));
           });
       }
     }
