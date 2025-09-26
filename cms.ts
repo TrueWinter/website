@@ -47,8 +47,13 @@ export interface Project {
   description: string
 }
 
+interface RelationalInput {
+  entry: string
+  collection: string
+}
+
 interface ProjectOrder {
-  projects: CollectionEntryWithRenderedData<Project>[]
+  projects: RelationalInput[]
 }
 
 export async function getProjects(): Promise<Project[]> {
@@ -56,7 +61,11 @@ export async function getProjects(): Promise<Project[]> {
   const { data } = await client.getCollectionEntry
     <CollectionEntryWithRenderedData<ProjectOrder>>(collection, entry);
 
-  return data.projects.map((project) => project.data);
+  return (await Promise.all(
+    data.projects.map(({ collection, entry }) => 
+      client.getCollectionEntry<CollectionEntryWithRenderedData<Project>>(collection, entry)
+    )
+  )).map((project) => project.data);
 }
 
 interface BlogPost {
